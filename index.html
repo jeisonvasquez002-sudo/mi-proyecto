@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proyectos Interdisciplinarios — Guía, Ejemplo y Recursos</title>
+  <meta name="description" content="Página informativa en español sobre proyectos interdisciplinarios en educación, con guía paso a paso, ejemplo listo para usar y recursos externos." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0f172a;          /* slate-900 */
+      --panel: #111827;       /* gray-900 */
+      --panel-2: #0b1220;     /* darker */
+      --text: #e5e7eb;        /* gray-200 */
+      --muted: #94a3b8;       /* slate-400 */
+      --brand: #7c3aed;       /* violet-600 */
+      --brand-2: #22d3ee;     /* cyan-400 */
+      --ok: #10b981;          /* emerald-500 */
+      --warn: #f59e0b;        /* amber-500 */
+      --danger: #ef4444;      /* red-500 */
+      --shadow: 0 10px 30px rgba(0,0,0,.4);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --maxw: 1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 85% -10%, rgba(124,58,237,.25), transparent 60%),
+                  radial-gradient(900px 500px at 10% 0, rgba(34,211,238,.15), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Topbar */
+    .topbar{
+      position: sticky; top:0; z-index: 100;
+      background: rgba(15,23,42,.7);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(148,163,184,.15);
+    }
+    .topbar .wrap{
+      max-width: var(--maxw); margin:0 auto; padding: 14px 20px;
+      display:flex; align-items:center; gap: 16px; justify-content: space-between;
+    }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px; }
+    .brand .logo{
+      width:36px; height:36px; display:grid; place-items:center; border-radius:10px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #0b1020; font-weight: 900;
+      box-shadow: 0 10px 22px rgba(124,58,237,.35), inset 0 0 30px rgba(255,255,255,.15);
+    }
+    nav a{
+      color: var(--muted); text-decoration: none; margin: 0 10px; font-weight:600; font-size: .95rem;
+    }
+    nav a:hover, nav a:focus{ color: #fff; }
+
+    /* Layout helpers */
+    .container{ max-width: var(--maxw); margin: 0 auto; padding: 28px 20px; }
+    .grid{ display:grid; gap:18px; }
+    @media (min-width: 720px){ .grid.cols-3{ grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 720px){ .grid.cols-2{ grid-template-columns: repeat(2, 1fr); } }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)), var(--panel);
+      border: 1px solid rgba(148,163,184,.12);
+      border-radius: var(--radius);
+      padding: 20px; box-shadow: var(--shadow);
+    }
+
+    .badge{ display:inline-block; padding: 6px 10px; border-radius: 10px; font-size:.8rem; font-weight:700; letter-spacing:.2px; }
+    .badge.brand{ background: rgba(124,58,237,.15); color:#e6d6ff; border:1px solid rgba(124,58,237,.35); }
+    .badge.ok{ background: rgba(16,185,129,.15); color:#d1fae5; border:1px solid rgba(16,185,129,.35); }
+
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 16px; border-radius: 12px; border:1px solid rgba(148,163,184,.2);
+      color:#fff; text-decoration:none; font-weight:700; letter-spacing:.2px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 10px 24px rgba(124,58,237,.35);
+      cursor: pointer;
+    }
+    .btn.secondary{ background: transparent; border:1px solid rgba(148,163,184,.25); color: var(--text); box-shadow:none; }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 26px rgba(124,58,237,.4); }
+
+    h1{ font-size: clamp(1.8rem, 2.6vw, 3rem); line-height: 1.15; margin:0 0 6px; }
+    h2{ font-size: clamp(1.4rem, 2vw, 2rem); line-height: 1.25; margin:0 0 12px; }
+    h3{ margin: 0 0 8px; }
+    p{ margin: 8px 0 14px; color: var(--text); }
+    ul{ margin: 8px 0 14px; padding-left: 1.2rem; color: var(--text); }
+    li{ margin: 6px 0; }
+    .muted{ color: var(--muted); }
+
+    /* Hero */
+    .hero{ padding: 56px 20px 18px; }
+    .hero .panel{
+      background: radial-gradient(600px 300px at 80% -20%, rgba(34,211,238,.12), transparent 60%),
+                  linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)),
+                  var(--panel-2);
+      border: 1px solid rgba(148,163,184,.15);
+      border-radius: 22px; padding: 28px; box-shadow: var(--shadow);
+    }
+    .hero .cta{ display:flex; gap:12px; flex-wrap: wrap; margin-top: 10px; }
+
+    /* Timeline */
+    .timeline{ position:relative; margin: 10px 0; }
+    .timeline:before{ content:""; position:absolute; left: 14px; top:0; bottom:0; width:2px; background: rgba(148,163,184,.25); }
+    .step{ position:relative; padding-left: 44px; margin: 18px 0; }
+    .step .dot{ position:absolute; left: 7px; top: 4px; width:16px; height:16px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 3px rgba(124,58,237,.25); }
+
+    /* FAQ */
+    .faq-item{ border:1px solid rgba(148,163,184,.15); border-radius: var(--radius-sm); background: var(--panel); }
+    .faq-item + .faq-item{ margin-top: 10px; }
+    .faq-q{
+      width:100%; text-align:left; background:transparent; color:#fff; font-weight:700; padding: 16px; border:0; display:flex; justify-content: space-between; align-items:center; cursor:pointer;
+    }
+    .faq-a{ padding: 0 16px 16px; color: var(--muted); display:none; }
+    .faq-item[aria-expanded="true"] .faq-a{ display:block; }
+
+    /* Footer */
+    footer{
+      margin-top: 26px; padding: 22px 20px 36px; color: var(--muted);
+      border-top: 1px solid rgba(148,163,184,.15);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), transparent);
+    }
+    .ext{ color: #e0e7ff; }
+
+    /* Accessibility helpers */
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
+
+    /* Auth modal */
+    .auth-backdrop{ position:fixed; inset:0; background: rgba(2,6,23,.85); backdrop-filter: blur(6px); display:none; align-items:center; justify-content:center; z-index:9999; }
+    .auth-panel{ width:min(92vw, 420px); background: var(--panel-2); border:1px solid rgba(148,163,184,.2); border-radius: 16px; padding: 22px; box-shadow: var(--shadow); }
+    .auth-panel h2{ margin:0 0 6px; }
+    .auth-panel p{ color: var(--muted); margin:0 0 14px; }
+    .auth-form{ display:grid; gap:10px; margin-top: 8px; }
+    .auth-form input[type="email"]{ width:100%; padding: 12px 14px; border-radius: 10px; border:1px solid rgba(148,163,184,.25); background: #0b1220; color:#fff; }
+    .auth-actions{ display:flex; gap:10px; margin-top: 6px; }
+    .auth-error{ color: var(--danger); font-size:.9rem; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <div class="brand" aria-label="Proyectos Interdisciplinarios">
+        <div class="logo" aria-hidden="true">PI</div>
+        <span>Proyectos Interdisciplinarios</span>
+      </div>
+      <nav aria-label="Navegación principal">
+        <a href="#que-es">Qué es</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#ejemplo">Ejemplo</a>
+        <a href="#guia">Guía</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="auth-backdrop" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="auth-panel">
+      <h2 id="auth-title">Inicia sesión</h2>
+      <p>Ingresa tu correo institucional para acceder al contenido.</p>
+      <form id="auth-form" class="auth-form" novalidate>
+        <label class="sr-only" for="auth-email">Correo electrónico</label>
+        <input id="auth-email" name="email" type="email" placeholder="tucuenta@colegio.edu" autocomplete="email" required />
+        <div id="auth-error" class="auth-error"></div>
+        <div class="auth-actions">
+          <button type="submit" class="btn">Entrar</button>
+          <button type="button" id="auth-skip" class="btn secondary">Invitado</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <main id="inicio" class="container">
+    <section class="hero" aria-labelledby="titulo-hero">
+      <div class="panel">
+        <span class="badge brand">Educación · Innovación</span>
+        <h1 id="titulo-hero">Proyectos interdisciplinarios: conecta saberes, enciende el aprendizaje</h1>
+        <p class="muted">Integrar varias asignaturas en un solo reto auténtico ayuda al alumnado a desarrollar competencias clave: pensamiento crítico, comunicación, colaboración y ciudadanía. Aquí encuentras una guía práctica, un ejemplo listo para adaptar y enlaces útiles.</p>
+        <div class="cta">
+          <a class="btn" target="_blank" rel="noopener noreferrer" href="https://es.aft.org/education/igniting-fire/project-examples-resources-and-websites/interdisciplinary-project">
+            Ver recurso externo (AFT)
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a class="btn secondary" href="#ejemplo">Ver ejemplo aplicable</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="que-es" class="grid" aria-labelledby="que-es-title">
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2 id="que-es-title">¿Qué es un proyecto interdisciplinario?</h2>
+        <p>Es una propuesta didáctica que integra contenidos, habilidades y métodos de dos o más áreas de conocimiento para abordar un problema real o una pregunta guía. El alumnado investiga, crea productos y comunica resultados conectando teoría y práctica.</p>
+        <ul>
+          <li><strong>Pregunta guía:</strong> abierta, retadora, relevante para el contexto.</li>
+          <li><strong>Productos:</strong> evidencias auténticas (prototipos, informes, presentaciones, campañas, visualizaciones de datos, etc.).</li>
+          <li><strong>Evaluación:</strong> rúbricas claras, auto/coevaluación y retroalimentación continua.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="beneficios" class="grid cols-3" aria-labelledby="beneficios-title">
+      <h2 id="beneficios-title" class="sr-only">Beneficios</h2>
+      <article class="card">
+        <h3>Conexión con la vida real</h3>
+        <p class="muted">El alumnado aplica saberes en contextos auténticos, aumentando la transferencia y el sentido del aprendizaje.</p>
+      </article>
+      <article class="card">
+        <h3>Competencias clave</h3>
+        <p class="muted">Potencia pensamiento crítico, alfabetización digital, comunicación efectiva, trabajo en equipo y creatividad.</p>
+      </article>
+      <article class="card">
+        <h3>Inclusión y motivación</h3>
+        <p class="muted">Diversifica productos y vías de demostración, habilitando la personalización y la participación activa.</p>
+      </article>
+    </section>
+
+    <section id="ejemplo" class="grid" aria-labelledby="ejemplo-title">
+      <div class="card" style="grid-column: 1 / -1;">
+        <span class="badge ok">Ejemplo práctico</span>
+        <h2 id="ejemplo-title">Ejemplo de proyecto: Ciudades sostenibles (3 semanas)</h2>
+        <p class="muted">Dirigido a Secundaria (adaptable a otros niveles). Integra Ciencias, Matemáticas, Lengua y Tecnología.</p>
+        <h3>Pregunta guía</h3>
+        <p>¿Cómo podemos diseñar propuestas para hacer más sostenible nuestro barrio o ciudad?</p>
+        <h3>Objetivos</h3>
+        <ul>
+          <li>Analizar datos ambientales y de uso del espacio urbano.</li>
+          <li>Proponer soluciones viables considerando impacto social y económico.</li>
+          <li>Comunicar resultados a la comunidad educativa.</li>
+        </ul>
+        <h3>Productos</h3>
+        <ul>
+          <li>Informe técnico breve con visualización de datos.</li>
+          <li>Prototipo o maqueta (física o digital) de una solución.</li>
+          <li>Presentación pública de 5–7 minutos.</li>
+        </ul>
+        <h3>Actividades sugeridas</h3>
+        <ol>
+          <li>Mapeo del barrio: observación, fotografías y registro de problemas (movilidad, residuos, áreas verdes).</li>
+          <li>Recolección y análisis de datos (conteos, encuestas, mediciones simples de ruido/temperatura).</li>
+          <li>Ideación con criterios de sostenibilidad (matriz de decisión).</li>
+          <li>Prototipado rápido (cartón, impresora 3D, simuladores o herramientas digitales).</li>
+          <li>Preparación de presentación y entrega a audiencia real (familias, municipio, comunidad).</li>
+        </ol>
+        <h3>Rúbrica resumida</h3>
+        <ul>
+          <li><strong>Investigación (25%)</strong>: fuentes, calidad de datos, análisis.</li>
+          <li><strong>Solución (35%)</strong>: viabilidad, creatividad, impacto.</li>
+          <li><strong>Comunicación (25%)</strong>: estructura, claridad, uso de evidencias.</li>
+          <li><strong>Trabajo en equipo (15%)</strong>: colaboración, gestión del tiempo, roles.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="guia" class="grid cols-2" aria-labelledby="guia-title">
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2 id="guia-title">Guía paso a paso</h2>
+        <p class="muted">Adapta la duración y la complejidad a tu contexto. Alinea siempre criterios e instrumentos de evaluación desde el inicio.</p>
+      </div>
+      <div class="card">
+        <div class="timeline">
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h3>1. Enfoque</h3>
+            <p class="muted">Define la pregunta guía, objetivos, asignaturas implicadas y criterios de éxito.</p>
+          </div>
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h3>2. Planificación</h3>
+            <p class="muted">Diseña actividades, productos y calendario. Prepara rúbricas y recursos.</p>
+          </div>
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h3>3. Investigación</h3>
+            <p class="muted">Recoge y analiza información de forma crítica y ética.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="timeline">
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h3>4. Creación</h3>
+            <p class="muted">Desarrolla prototipos y prepara evidencias del aprendizaje.</p>
+          </div>
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h3>5. Presentación</h3>
+            <p class="muted">Comunica a una audiencia real y recoge retroalimentación.</p>
+          </div>
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h3>6. Evaluación y mejora</h3>
+            <p class="muted">Aplica rúbricas, realiza auto/coevaluación y define mejoras.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos" class="grid" aria-labelledby="recursos-title">
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2 id="recursos-title">Recursos y enlaces</h2>
+        <p>Consulta este recurso recomendado para ideas, ejemplos y materiales adicionales:</p>
+        <p>
+          <a class="ext" target="_blank" rel="noopener noreferrer" href="https://es.aft.org/education/igniting-fire/project-examples-resources-and-websites/interdisciplinary-project">
+            Proyecto Interdisciplinario — AFT (enlace externo) ↗
+          </a>
+        </p>
+        <p class="muted">Nota: Esta página no está afiliada a AFT. El enlace anterior conduce al sitio oficial de AFT para referencia externa.</p>
+      </div>
+    </section>
+
+    <section id="faq" class="grid" aria-labelledby="faq-title">
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2 id="faq-title">Preguntas frecuentes</h2>
+        <div class="faq-item" aria-expanded="false">
+          <button class="faq-q" aria-controls="a1" aria-expanded="false">
+            ¿Cuánto dura un proyecto interdisciplinario?
+            <span aria-hidden="true">▾</span>
+          </button>
+          <div id="a1" class="faq-a">Puede ir de 1 a 6 semanas. Ajusta la complejidad según el nivel y el calendario escolar.</div>
+        </div>
+        <div class="faq-item" aria-expanded="false">
+          <button class="faq-q" aria-controls="a2" aria-expanded="false">
+            ¿Cómo asegurar la evaluación justa entre asignaturas?
+            <span aria-hidden="true">▾</span>
+          </button>
+          <div id="a2" class="faq-a">Co-diseña rúbricas comunes, define criterios compartidos y permite evidencias variadas alineadas a estándares.</div>
+        </div>
+        <div class="faq-item" aria-expanded="false">
+          <button class="faq-q" aria-controls="a3" aria-expanded="false">
+            ¿Y si no hay recursos tecnológicos?
+            <span aria-hidden="true">▾</span>
+          </button>
+          <div id="a3" class="faq-a">Prioriza investigación de campo, prototipos físicos y presentaciones orales; la interdisciplinariedad no depende del nivel tecnológico.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>© <span id="year"></span> Proyectos Interdisciplinarios. Contenido educativo elaborado para uso docente.</p>
+      <p class="muted">Hecho con buenas prácticas de accesibilidad y responsive design. Tipografía: Inter.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Desplazamiento suave para anclas internas
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id.length > 1) {
+          e.preventDefault();
+          const el = document.querySelector(id);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // FAQ toggle accesible
+    document.querySelectorAll('.faq-item').forEach((item, idx) => {
+      const btn = item.querySelector('.faq-q');
+      const ans = item.querySelector('.faq-a');
+      const aid = ans.id || `faq-a-${idx}`;
+      ans.id = aid; btn.setAttribute('aria-controls', aid);
+      btn.addEventListener('click', () => {
+        const expanded = item.getAttribute('aria-expanded') === 'true';
+        item.setAttribute('aria-expanded', String(!expanded));
+        btn.setAttribute('aria-expanded', String(!expanded));
+      });
+    });
+
+    // Auth modal logic
+    const authModal = document.getElementById('auth-modal');
+    const authForm = document.getElementById('auth-form');
+    const authEmail = document.getElementById('auth-email');
+    const authError = document.getElementById('auth-error');
+    const authSkip = document.getElementById('auth-skip');
+
+    function showAuth(){ if(authModal){ authModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; setTimeout(() => authEmail?.focus(), 50); } }
+    function hideAuth(){ if(authModal){ authModal.style.display = 'none'; document.body.style.overflow = ''; } }
+
+    const SESSION_KEY = 'pi_session';
+    const hasSession = localStorage.getItem(SESSION_KEY);
+    if (!hasSession) { showAuth(); }
+
+    function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+    authForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = (authEmail?.value || '').trim();
+      if (!validEmail(v)) { if(authError) authError.textContent = 'Ingresa un correo válido.'; return; }
+      localStorage.setItem(SESSION_KEY, JSON.stringify({ email: v, ts: Date.now() }));
+      hideAuth();
+    });
+
+    authSkip?.addEventListener('click', () => {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({ guest: true, ts: Date.now() }));
+      hideAuth();
+    });
+  </script>
+</body>
+</html>
