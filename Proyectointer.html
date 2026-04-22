@@ -1,0 +1,2797 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Historia de la Seguridad Digital — Conciencia Crítica en Jóvenes</title>
+  <meta name="description" content="Historia de la seguridad digital y el uso responsable de internet en jóvenes: evolución, hitos clave y educación para la ciudadanía digital." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #0b1220;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --brand: #0ea5e9;
+      --brand-2: #10b981;
+      --ok: #10b981;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 10px 30px rgba(0,0,0,.4);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --maxw: 1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 85% -10%, rgba(14,165,233,.25), transparent 60%),
+                  radial-gradient(900px 500px at 10% 0, rgba(16,185,129,.15), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Topbar */
+    .topbar{
+      position: sticky; top:0; z-index: 100;
+      background: rgba(15,23,42,.82);
+      backdrop-filter: blur(14px) saturate(1.3);
+      border-bottom: 1px solid rgba(148,163,184,.18);
+      box-shadow: 0 2px 24px rgba(14,165,233,.08);
+    }
+    .topbar .wrap{
+      max-width: var(--maxw); margin:0 auto; padding: 0 20px;
+      display:flex; align-items:stretch; gap: 0; justify-content: space-between;
+      min-height: 58px;
+    }
+    /* Secciones del topbar */
+    .topbar-brand-section{
+      display:flex; align-items:center; padding: 10px 18px 10px 0;
+      border-right: 1px solid rgba(148,163,184,.13);
+      margin-right: 16px;
+    }
+    .topbar-nav-section{
+      display:flex; align-items:center; flex:1;
+      padding: 0 16px;
+      border-right: 1px solid rgba(148,163,184,.13);
+    }
+    .topbar-controls-section{
+      display:flex; align-items:center; gap:10px;
+      padding: 10px 0 10px 18px;
+    }
+    /* Highlight animado en topbar al cargar */
+    @keyframes topbar-glow-in{
+      from{ box-shadow: 0 2px 0px rgba(14,165,233,0); }
+      to{ box-shadow: 0 2px 10px rgba(14,165,233,.18); }
+    }
+    .topbar{ animation: topbar-glow-in 1s ease 0.5s both; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px; }
+    .brand .logo{
+      width:36px; height:36px; display:grid; place-items:center; border-radius:10px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #0b1020; font-weight: 900; font-size:1.1rem;
+      box-shadow: 0 10px 22px rgba(14,165,233,.35), inset 0 0 30px rgba(255,255,255,.15);
+    }
+    nav a{
+      color: var(--muted); text-decoration: none; margin: 0 10px; font-weight:600; font-size: .95rem;
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a:focus{ color: #fff; }
+
+    /* Layout helpers */
+    .container{ max-width: var(--maxw); margin: 0 auto; padding: 28px 20px; }
+    .grid{ display:grid; gap:18px; }
+    @media (min-width: 720px){ .grid.cols-3{ grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 720px){ .grid.cols-2{ grid-template-columns: repeat(2, 1fr); } }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)), var(--panel);
+      border: 1px solid rgba(148,163,184,.12);
+      border-radius: var(--radius);
+      padding: 20px; box-shadow: var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(14,165,233,.2);
+      border-color: rgba(14,165,233,.3);
+    }
+
+    .badge{ display:inline-block; padding: 6px 10px; border-radius: 10px; font-size:.8rem; font-weight:700; letter-spacing:.2px; }
+    .badge.brand{ background: rgba(14,165,233,.15); color:#bae6fd; border:1px solid rgba(14,165,233,.35); }
+    .badge.ok{ background: rgba(16,185,129,.15); color:#d1fae5; border:1px solid rgba(16,185,129,.35); }
+    .badge.warn{ background: rgba(245,158,11,.12); color:#fef3c7; border:1px solid rgba(245,158,11,.3); }
+
+    /* ===== GLOWING BUTTONS ===== */
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 16px; border-radius: 12px; border:1px solid rgba(148,163,184,.2);
+      color:#fff; text-decoration:none; font-weight:700; letter-spacing:.2px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 10px 24px rgba(14,165,233,.35);
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .btn::before{
+      content:'';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.18), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .btn::after{
+      content:'';
+      position: absolute; left: -60%; top: -60%; width: 220%; height: 220%;
+      background: conic-gradient(from 0deg, transparent 40%, rgba(255,255,255,.12) 50%, transparent 60%);
+      animation: none;
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+    .btn:hover{
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 0 2px rgba(14,165,233,.5), 0 0 18px 4px rgba(14,165,233,.45), 0 18px 30px rgba(14,165,233,.4);
+    }
+    .btn:hover::before{ opacity: 1; }
+    .btn:hover::after{ opacity: 1; animation: btn-spin 1.8s linear infinite; }
+    @keyframes btn-spin{
+      to{ transform: rotate(360deg); }
+    }
+    .btn.secondary{
+      background: transparent; border:1px solid rgba(148,163,184,.25); color: var(--text); box-shadow:none;
+    }
+    .btn.secondary:hover{
+      box-shadow: 0 0 0 2px rgba(16,185,129,.4), 0 0 18px 4px rgba(16,185,129,.25), 0 10px 20px rgba(0,0,0,.3);
+      border-color: rgba(16,185,129,.5);
+      color: #fff;
+    }
+    .btn.secondary::after{ background: conic-gradient(from 0deg, transparent 40%, rgba(16,185,129,.1) 50%, transparent 60%); }
+
+    /* FAQ buttons */
+    .faq-q{
+      width:100%; text-align:left; background:transparent; color:#fff; font-weight:700; padding: 16px; border:0;
+      display:flex; justify-content: space-between; align-items:center; cursor:pointer;
+      transition: color 0.2s, background 0.2s;
+      border-radius: var(--radius-sm);
+    }
+    .faq-q:hover{ background: rgba(14,165,233,.08); color: #7dd3fc; }
+
+    h1{ font-size: clamp(1.8rem, 2.6vw, 3rem); line-height: 1.15; margin:0 0 6px; }
+    h2{ font-size: clamp(1.4rem, 2vw, 2rem); line-height: 1.25; margin:0 0 12px; }
+    h3{ margin: 0 0 8px; }
+    p{ margin: 8px 0 14px; color: var(--text); }
+    ul,ol{ margin: 8px 0 14px; padding-left: 1.2rem; color: var(--text); }
+    li{ margin: 6px 0; }
+    .muted{ color: var(--muted); }
+
+    /* Hero */
+    .hero{ padding: 56px 20px 18px; }
+    .hero .panel{
+      background: radial-gradient(600px 300px at 80% -20%, rgba(14,165,233,.12), transparent 60%),
+                  linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)),
+                  var(--panel-2);
+      border: 1px solid rgba(148,163,184,.15);
+      border-radius: 22px; padding: 28px; box-shadow: var(--shadow);
+    }
+    .hero .cta{ display:flex; gap:12px; flex-wrap: wrap; margin-top: 10px; }
+
+    /* Timeline historia */
+    .hist-timeline{ position:relative; margin: 10px 0; }
+    .hist-timeline:before{ content:""; position:absolute; left:20px; top:0; bottom:0; width:2px; background: linear-gradient(to bottom, var(--brand), var(--brand-2)); opacity:.4; }
+    .hist-step{ position:relative; padding-left: 56px; margin: 22px 0; }
+    .hist-dot{
+      position:absolute; left:12px; top:6px; width:20px; height:20px;
+      border-radius: 50%; background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(14,165,233,.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.7rem; color:#fff; font-weight:800;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .hist-step:hover .hist-dot{
+      background: var(--brand-2);
+      box-shadow: 0 0 0 5px rgba(16,185,129,.3), 0 0 14px 4px rgba(16,185,129,.25);
+    }
+    .hist-year{
+      display:inline-block; font-size:.8rem; font-weight:800;
+      color: var(--brand); letter-spacing:.5px; margin-bottom:4px;
+    }
+
+    /* FAQ */
+    .faq-item{ border:1px solid rgba(148,163,184,.15); border-radius: var(--radius-sm); background: var(--panel); }
+    .faq-item + .faq-item{ margin-top: 10px; }
+    .faq-a{ padding: 0 16px 16px; color: var(--muted); display:none; }
+    .faq-item[aria-expanded="true"] .faq-a{ display:block; }
+
+    /* Footer */
+    footer{
+      margin-top: 26px; padding: 22px 20px 36px; color: var(--muted);
+      border-top: 1px solid rgba(148,163,184,.15);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), transparent);
+    }
+
+    .ext{ color: #bae6fd; }
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
+
+    /* Auth modal */
+    .auth-backdrop{ position:fixed; inset:0; background: rgba(2,6,23,.85); backdrop-filter: blur(6px); display:none; align-items:center; justify-content:center; z-index:9999; }
+    .auth-panel{ width:min(92vw, 420px); background: var(--panel-2); border:1px solid rgba(148,163,184,.2); border-radius: 16px; padding: 22px; box-shadow: var(--shadow); }
+    .auth-panel h2{ margin:0 0 6px; }
+    .auth-panel p{ color: var(--muted); margin:0 0 14px; }
+    .auth-form{ display:grid; gap:10px; margin-top: 8px; }
+    .auth-form input[type="email"]{ width:100%; padding: 12px 14px; border-radius: 10px; border:1px solid rgba(148,163,184,.25); background: #0b1220; color:#fff; }
+    .auth-actions{ display:flex; gap:10px; margin-top: 6px; }
+    .auth-error{ color: var(--danger); font-size:.9rem; min-height: 1.2em; }
+
+    /* ===== LAYOUT WITH SIDEBAR ===== */
+    .page-layout{
+      display: flex;
+      gap: 0;
+      align-items: flex-start;
+      max-width: calc(var(--maxw) + 280px);
+      margin: 0 auto;
+    }
+    .main-content{
+      flex: 1;
+      min-width: 0;
+    }
+    .sidebar{
+      width: 260px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 80px;
+      padding: 20px 16px 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    @media (max-width: 1100px){ .sidebar{ display: none; } }
+
+    /* ===== ROBOT ===== */
+    .robot-container{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)), var(--panel);
+      border: 1px solid rgba(148,163,184,.12);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .robot-container::before{
+      content: '';
+      position: absolute;
+      top: -40px; left: -40px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(14,165,233,.12), transparent 70%);
+      pointer-events: none;
+      animation: robot-glow-pulse 3s ease-in-out infinite;
+    }
+    @keyframes robot-glow-pulse{
+      0%,100%{ opacity:.5; transform: scale(1); }
+      50%{ opacity:1; transform: scale(1.1); }
+    }
+    .robot-container h4{
+      margin: 0 0 8px;
+      font-size: .85rem;
+      color: var(--muted);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    .robot-wrap{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 180px;
+      position: relative;
+    }
+    .robot-svg{
+      animation: robot-float 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 14px rgba(14,165,233,.6));
+      cursor: pointer;
+      transition: filter 0.3s;
+    }
+    .robot-svg:hover{
+      filter: drop-shadow(0 0 22px rgba(16,185,129,.8));
+    }
+    @keyframes robot-float{
+      0%,100%{ transform: translateY(0px) rotate(0deg); }
+      30%{ transform: translateY(-10px) rotate(-2deg); }
+      70%{ transform: translateY(-6px) rotate(2deg); }
+    }
+    .robot-eye-l, .robot-eye-r{
+      animation: blink 4s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes blink{
+      0%,90%,100%{ transform: scaleY(1); }
+      95%{ transform: scaleY(0.1); }
+    }
+    .robot-antenna{
+      animation: antenna-pulse 1.5s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+    @keyframes antenna-pulse{
+      from{ opacity:.5; filter: drop-shadow(0 0 2px rgba(16,185,129,.4)); }
+      to{ opacity:1; filter: drop-shadow(0 0 6px rgba(16,185,129,.9)); }
+    }
+    .robot-arm-l{
+      animation: arm-wave-l 2s ease-in-out infinite;
+      transform-origin: top center;
+    }
+    .robot-arm-r{
+      animation: arm-wave-r 2s ease-in-out infinite;
+      transform-origin: top center;
+    }
+    @keyframes arm-wave-l{
+      0%,100%{ transform: rotate(0deg); } 50%{ transform: rotate(-20deg); }
+    }
+    @keyframes arm-wave-r{
+      0%,100%{ transform: rotate(0deg); } 50%{ transform: rotate(20deg); }
+    }
+    .robot-leg-l{
+      animation: leg-walk-l 1.8s ease-in-out infinite;
+      transform-origin: top center;
+    }
+    .robot-leg-r{
+      animation: leg-walk-r 1.8s ease-in-out infinite;
+      transform-origin: top center;
+    }
+    @keyframes leg-walk-l{
+      0%,100%{ transform: rotate(0deg); } 50%{ transform: rotate(-8deg); }
+    }
+    @keyframes leg-walk-r{
+      0%,100%{ transform: rotate(0deg); } 50%{ transform: rotate(8deg); }
+    }
+    .robot-chest-glow{
+      animation: chest-scan 2s ease-in-out infinite alternate;
+    }
+    @keyframes chest-scan{
+      from{ opacity:.4; } to{ opacity:1; }
+    }
+    .robot-tip{
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: 8px;
+      min-height: 2.4em;
+      transition: opacity 0.4s;
+    }
+    .robot-tip span{ color: var(--brand-2); font-weight: 600; }
+    .robot-particles{
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .robot-particle{
+      position: absolute;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--brand);
+      opacity: 0;
+      animation: particle-rise 3s ease-in infinite;
+    }
+    .robot-particle:nth-child(1){ left:20%; background:#0ea5e9; animation-delay: 0s; animation-duration: 3.2s; }
+    .robot-particle:nth-child(2){ left:50%; background:#10b981; animation-delay: 0.8s; animation-duration: 2.8s; }
+    .robot-particle:nth-child(3){ left:75%; background:#0ea5e9; animation-delay: 1.6s; animation-duration: 3.5s; }
+    @keyframes particle-rise{
+      0%{ opacity:0; transform: translateY(100px) scale(0); }
+      20%{ opacity:.8; }
+      80%{ opacity:.4; }
+      100%{ opacity:0; transform: translateY(-30px) scale(0.5); }
+    }
+
+    /* ===== QUICK STATS WIDGET ===== */
+    .stats-widget{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)), var(--panel);
+      border: 1px solid rgba(148,163,184,.12);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .stats-widget h4{
+      margin: 0 0 12px;
+      font-size: .85rem;
+      color: var(--muted);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    .stat-item{
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(148,163,184,.08);
+    }
+    .stat-item:last-child{ border-bottom: none; }
+    .stat-icon{ font-size: 1.3rem; }
+    .stat-info{ flex: 1; }
+    .stat-label{ font-size: .78rem; color: var(--muted); display: block; }
+    .stat-value{ font-size: 1.05rem; font-weight: 800; color: var(--brand); }
+
+    /* ===== PROGRESS WIDGET ===== */
+    .progress-widget{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)), var(--panel);
+      border: 1px solid rgba(148,163,184,.12);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .progress-widget h4{
+      margin: 0 0 12px;
+      font-size: .85rem;
+      color: var(--muted);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    .prog-row{ margin-bottom: 10px; }
+    .prog-label{ font-size: .8rem; color: var(--text); margin-bottom: 4px; display: flex; justify-content: space-between; }
+    .prog-bar-bg{ height: 6px; border-radius: 999px; background: rgba(148,163,184,.15); overflow: hidden; }
+    .prog-bar-fill{ height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--brand), var(--brand-2)); transition: width 1.5s cubic-bezier(.22,1,.36,1); width: 0; }
+
+    /* Cards con imagen */
+    .card-with-img{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)), var(--panel);
+      border: 1px solid rgba(148,163,184,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .card-with-img:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(14,165,233,.2);
+      border-color: rgba(14,165,233,.3);
+    }
+    .card-img-wrap{ width:100%; height:160px; overflow:hidden; }
+    .card-img-wrap img{
+      width:100%; height:100%; object-fit:cover;
+      filter: brightness(0.8) saturate(0.9);
+      transition: transform 0.4s, filter 0.4s;
+    }
+    .card-with-img:hover .card-img-wrap img{
+      transform: scale(1.05); filter: brightness(0.9) saturate(1);
+    }
+    .card-body{ padding: 18px; }
+
+    /* Imagen en sección */
+    .section-img{
+      width:100%; height:200px; object-fit:cover;
+      border-radius: calc(var(--radius) - 4px); margin-bottom:16px; display:block;
+      filter: brightness(0.75) saturate(0.85);
+    }
+
+    /* Hero layout */
+    .hero-inner{ display:grid; gap:24px; }
+    @media(min-width:720px){ .hero-inner{ grid-template-columns: 1fr auto; align-items: center; } }
+    .hero-img-wrap{
+      display: none;
+    }
+    @media (min-width: 720px){
+      .hero-img-wrap{
+        display: flex; justify-content: center;
+      }
+    }
+    .hero-img-wrap svg{
+      filter: drop-shadow(0 0 20px rgba(14,165,233,.3));
+      animation: hero-float 4s ease-in-out infinite;
+    }
+    @keyframes hero-float{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-12px); }
+    }
+
+    /* ===== ANIMACIONES DE ENTRADA (como index) ===== */
+    .fade-up{
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s cubic-bezier(.22,1,.36,1), transform 0.6s cubic-bezier(.22,1,.36,1);
+    }
+    .fade-up.visible{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up-delay-1{ transition-delay: 0.1s; }
+    .fade-up-delay-2{ transition-delay: 0.2s; }
+    .fade-up-delay-3{ transition-delay: 0.3s; }
+    .fade-up-delay-4{ transition-delay: 0.4s; }
+    .fade-up-delay-5{ transition-delay: 0.5s; }
+    .fade-up-delay-6{ transition-delay: 0.6s; }
+
+    /* ===== FLOATING PARTICLES BG ===== */
+    .bg-particles{
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bg-particle{
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: bg-float linear infinite;
+    }
+    @keyframes bg-float{
+      0%{ opacity:0; transform: translateY(100vh) scale(0); }
+      10%{ opacity:.15; }
+      90%{ opacity:.08; }
+      100%{ opacity:0; transform: translateY(-10vh) scale(1); }
+    }
+
+    /* ===== GLOWING TIMELINE DOTS PULSE ===== */
+    .hist-dot::after{
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid var(--brand);
+      opacity: 0;
+      animation: dot-ring 2.5s ease-out infinite;
+    }
+    @keyframes dot-ring{
+      0%{ transform: scale(1); opacity:.6; }
+      100%{ transform: scale(2.2); opacity:0; }
+    }
+    .hist-step:nth-child(1) .hist-dot::after{ animation-delay: 0s; }
+    .hist-step:nth-child(2) .hist-dot::after{ animation-delay: 0.4s; }
+    .hist-step:nth-child(3) .hist-dot::after{ animation-delay: 0.8s; }
+    .hist-step:nth-child(4) .hist-dot::after{ animation-delay: 1.2s; }
+    .hist-step:nth-child(5) .hist-dot::after{ animation-delay: 1.6s; }
+    .hist-step:nth-child(6) .hist-dot::after{ animation-delay: 2s; }
+
+    /* ===== STAT COUNT ANIMATION ===== */
+    .stat-value{ transition: color 0.3s; }
+    .stat-item:hover .stat-value{ color: var(--brand-2); }
+
+    /* ===== CARD SHIMMER ===== */
+    .card-with-img::before{
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.04), transparent);
+      transition: left 0.5s ease;
+      pointer-events: none;
+    }
+    .card-with-img{ position: relative; }
+    .card-with-img:hover::before{
+      left: 140%;
+    }
+
+    /* ===== TIMELINE STEP HOVER ===== */
+    .hist-step{
+      transition: padding-left 0.3s ease;
+      border-radius: var(--radius-sm);
+      padding-right: 8px;
+    }
+    .hist-step:hover{
+      padding-left: 62px;
+      background: rgba(14,165,233,.04);
+    }
+
+    /* ===== TYPING EFFECT ===== */
+    .typing-cursor::after{
+      content: '|';
+      color: var(--brand-2);
+      animation: cursor-blink 1s step-end infinite;
+    }
+    @keyframes cursor-blink{
+      0%,100%{ opacity:1; } 50%{ opacity:0; }
+    }
+
+    /* ===== SHIELD PULSE (decorativo en hero) ===== */
+    .shield-pulse{
+      animation: shield-glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes shield-glow{
+      from{ filter: drop-shadow(0 0 4px rgba(14,165,233,.4)); }
+      to{ filter: drop-shadow(0 0 14px rgba(16,185,129,.7)); }
+    }
+
+    /* ===== MENÚ 3 PUNTITOS ===== */
+    .dots-menu-wrapper{
+      position: relative;
+    }
+    .dots-btn{
+      background: rgba(148,163,184,.1);
+      border: 1px solid rgba(148,163,184,.2);
+      border-radius: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1.25rem;
+      width: 38px; height: 38px;
+      display: grid; place-items: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      letter-spacing: 1px;
+      padding: 0;
+    }
+    .dots-btn:hover{ background: rgba(14,165,233,.15); color: #fff; border-color: rgba(14,165,233,.4); }
+    .dots-btn.open{ background: rgba(14,165,233,.2); color: #fff; border-color: rgba(14,165,233,.5); }
+
+    .dots-dropdown{
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 310px;
+      background: var(--panel-2);
+      border: 1px solid rgba(148,163,184,.2);
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.6);
+      z-index: 500;
+      padding: 14px;
+      animation: dropdown-in 0.2s ease;
+    }
+    .dots-dropdown.show{ display: block; }
+    @keyframes dropdown-in{
+      from{ opacity:0; transform: translateY(-8px) scale(.97); }
+      to{ opacity:1; transform: translateY(0) scale(1); }
+    }
+    .dots-dropdown h5{
+      margin: 0 0 10px;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--muted);
+      padding: 0 4px;
+    }
+    .materias-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .materia-item{
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 9px;
+      border-radius: 9px;
+      font-size: .8rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      cursor: pointer;
+      background: none;
+      font-family: inherit;
+      text-align: left;
+      width: 100%;
+    }
+    .materia-item.relacionada{
+      background: rgba(16,185,129,.08);
+      border-color: rgba(16,185,129,.25);
+      color: #d1fae5;
+    }
+    .materia-item.relacionada:hover{
+      background: rgba(16,185,129,.14);
+      border-color: rgba(16,185,129,.45);
+      transform: translateX(3px);
+    }
+    .materia-item.no-relacionada:hover{
+      background: rgba(148,163,184,.1);
+    }
+
+    /* Nav links inside dropdown */
+    .nav-links-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      margin-bottom: 4px;
+    }
+    .nav-link-item{
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 9px;
+      border-radius: 9px;
+      font-size: .8rem; font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      background: rgba(148,163,184,.06);
+      border: 1px solid rgba(148,163,184,.12);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .nav-link-item:hover{
+      background: rgba(14,165,233,.12);
+      border-color: rgba(14,165,233,.3);
+      color: #7dd3fc;
+    }
+
+    /* ===== MATERIA INLINE PANEL ===== */
+    #materia-inline-section{
+      display: none;
+      margin-top: 0;
+      animation: materia-enter 0.55s cubic-bezier(.22,1,.36,1) forwards;
+    }
+    #materia-inline-section.visible{
+      display: block;
+    }
+    @keyframes materia-enter{
+      from{ opacity:0; transform: translateY(40px) scale(.97); }
+      to{ opacity:1; transform: translateY(0) scale(1); }
+    }
+    .materia-hero-banner{
+      width:100%; height:260px; position:relative; border-radius: var(--radius); overflow:hidden;
+      margin-bottom: 0;
+    }
+    .materia-hero-banner img{
+      width:100%; height:100%; object-fit:cover;
+      filter: brightness(0.55) saturate(0.9);
+      transition: transform 8s ease;
+    }
+    #materia-inline-section.visible .materia-hero-banner img{
+      transform: scale(1.06);
+    }
+    .materia-hero-overlay{
+      position:absolute; inset:0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.1) 0%, rgba(11,18,32,.85) 100%);
+      display:flex; flex-direction:column; justify-content:flex-end;
+      padding: 28px 30px;
+    }
+    .materia-hero-icon{
+      font-size: 3.5rem;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 16px rgba(14,165,233,.6));
+      animation: icon-bounce 0.6s cubic-bezier(.34,1.56,.64,1) 0.3s both;
+    }
+    @keyframes icon-bounce{
+      from{ transform: scale(0) rotate(-20deg); opacity:0; }
+      to{ transform: scale(1) rotate(0deg); opacity:1; }
+    }
+    .materia-hero-title{
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800; margin:0 0 8px;
+      text-shadow: 0 2px 12px rgba(0,0,0,.6);
+    }
+    .materia-tag-rel{
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 999px; font-size: .8rem; font-weight: 700;
+      background: rgba(16,185,129,.2); border: 1px solid rgba(16,185,129,.4); color: #d1fae5;
+      backdrop-filter: blur(4px);
+    }
+    .materia-tag-norel{
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 999px; font-size: .8rem; font-weight: 700;
+      background: rgba(148,163,184,.12); border: 1px solid rgba(148,163,184,.25); color: var(--muted);
+      backdrop-filter: blur(4px);
+    }
+    .materia-body-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01)), var(--panel);
+      border: 1px solid rgba(148,163,184,.12);
+      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 28px 30px 32px;
+      box-shadow: var(--shadow);
+    }
+    .materia-aporte-box{
+      background: linear-gradient(135deg, rgba(14,165,233,.08), rgba(16,185,129,.06));
+      border: 1px solid rgba(14,165,233,.25);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .materia-aporte-box::before{
+      content: '💡';
+      position:absolute; right:14px; top:10px; font-size:2.2rem; opacity:.15;
+    }
+    .materia-aporte-box p{
+      margin:0; color: var(--text); font-size: .95rem; line-height: 1.7;
+    }
+    .materia-temas-title{
+      font-size:.75rem; font-weight:800; letter-spacing:.8px; text-transform:uppercase;
+      color: var(--brand); margin: 0 0 14px;
+    }
+    .materia-temas-list{
+      display: grid; gap: 10px;
+      list-style: none; padding: 0; margin: 0;
+    }
+    .materia-temas-list li{
+      display:flex; align-items:flex-start; gap:12px;
+      background: rgba(14,165,233,.05);
+      border: 1px solid rgba(14,165,233,.15);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: .9rem;
+      color: var(--text);
+      animation: tema-slide 0.4s cubic-bezier(.22,1,.36,1) both;
+    }
+    .materia-temas-list li:nth-child(1){ animation-delay: 0.15s; }
+    .materia-temas-list li:nth-child(2){ animation-delay: 0.22s; }
+    .materia-temas-list li:nth-child(3){ animation-delay: 0.29s; }
+    .materia-temas-list li:nth-child(4){ animation-delay: 0.36s; }
+    .materia-temas-list li:nth-child(5){ animation-delay: 0.43s; }
+    @keyframes tema-slide{
+      from{ opacity:0; transform: translateX(-18px); }
+      to{ opacity:1; transform: translateX(0); }
+    }
+    .tema-bullet{
+      width:22px; height:22px; border-radius:6px; flex-shrink:0;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      display:grid; place-items:center; font-size:.7rem; font-weight:800; color:#0b1220;
+    }
+    .materia-imgs-row{
+      display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px;
+    }
+    .materia-imgs-row img{
+      width:100%; height:120px; object-fit:cover; border-radius:10px;
+      filter:brightness(.7) saturate(.9);
+      transition: transform .4s, filter .4s;
+    }
+    .materia-imgs-row img:hover{ transform:scale(1.04); filter:brightness(.85) saturate(1.1); }
+    .materia-close-strip{
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:20px;
+    }
+    .materia-close-inline-btn{
+      background: rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.25);
+      color:#fca5a5; border-radius:10px; padding:8px 16px; cursor:pointer;
+      font-size:.82rem; font-weight:700; font-family:inherit;
+      display:flex; align-items:center; gap:6px;
+      transition: background .2s, border-color .2s;
+    }
+    .materia-close-inline-btn:hover{ background:rgba(239,68,68,.22); border-color:rgba(239,68,68,.5); }
+
+    /* Animación de partículas decorativas en el panel */
+    .materia-sparkle{
+      position:absolute; pointer-events:none; overflow:hidden; inset:0; border-radius: var(--radius);
+    }
+    .materia-sparkle span{
+      position:absolute; width:3px; height:3px; border-radius:50%;
+      background:var(--brand); opacity:0;
+      animation: sparkle-anim 2.5s ease-in infinite;
+    }
+    @keyframes sparkle-anim{
+      0%{ opacity:0; transform:translateY(10px) scale(0); }
+      20%{ opacity:.8; }
+      100%{ opacity:0; transform:translateY(-80px) scale(.3); }
+    }
+
+    /* ===== MATERIA MODAL (kept for backward compat but hidden) ===== */
+    .materia-backdrop{ display:none !important; }
+
+    .temas-box{
+      background: rgba(14,165,233,.06);
+      border: 1px solid rgba(14,165,233,.2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 4px;
+    }
+    .temas-box h4{ color: var(--brand); margin: 0 0 8px; font-size: .85rem; text-transform: uppercase; letter-spacing: .5px; }
+
+
+      background: rgba(148,163,184,.05);
+      border-color: rgba(148,163,184,.1);
+      color: var(--muted);
+    }
+    .materia-dot{
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .materia-dot.verde{ background: var(--brand-2); box-shadow: 0 0 5px rgba(16,185,129,.6); }
+    .materia-dot.gris{ background: rgba(148,163,184,.4); }
+    .dots-legend{
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(148,163,184,.12);
+      display: flex;
+      gap: 14px;
+      font-size: .72rem;
+      color: var(--muted);
+    }
+    .dots-legend span{ display:flex; align-items:center; gap:5px; }
+
+    /* ===== HERO PORTADA (solo materias relacionadas en inicio) ===== */
+    .home-subjects-panel{
+      background: linear-gradient(135deg, rgba(16,185,129,.06), rgba(14,165,233,.06)),
+                  linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)), var(--panel);
+      border: 1px solid rgba(16,185,129,.2);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      margin-top: 20px;
+      box-shadow: var(--shadow);
+    }
+    .home-subjects-panel h3{
+      color: var(--brand-2);
+      font-size: 1rem;
+      margin: 0 0 6px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .home-subjects-panel p{
+      color: var(--muted);
+      font-size: .88rem;
+      margin: 0 0 14px;
+    }
+    .home-subjects-tags{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .subj-tag{
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 700;
+      background: rgba(16,185,129,.12);
+      border: 1px solid rgba(16,185,129,.3);
+      color: #d1fae5;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .subj-tag:hover{ background: rgba(16,185,129,.2); transform: translateY(-2px); }
+
+    /* ===== PARTICLE DOTS (decorativos) ===== */
+    .dot-grid{
+      position: absolute;
+      top: 0; right: 0; width: 120px; height: 120px;
+      opacity: .07;
+      background-image: radial-gradient(circle, #94a3b8 1px, transparent 1px);
+      background-size: 12px 12px;
+      pointer-events: none;
+    }
+    /* ===== PILARES ===== */
+    .pilar-card{
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(var(--c, 14,165,233),.25);
+      border-left: 3px solid var(--c, #0ea5e9);
+      border-radius: 12px;
+      padding: 16px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .pilar-card:hover{ transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+    .pilar-icon{ font-size: 1.8rem; margin-bottom: 8px; }
+    .pilar-title{ font-weight: 800; font-size: .95rem; margin-bottom: 4px; }
+    .pilar-desc{ font-size: .8rem; color: var(--muted); }
+
+    /* ===== OBJETIVOS ===== */
+    .obj-item{
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px; border-radius: 12px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(148,163,184,.1);
+      transition: border-color .2s;
+    }
+    .obj-item:hover{ border-color: rgba(14,165,233,.3); }
+    .obj-num{
+      font-size: 1.4rem; font-weight: 900;
+      color: rgba(14,165,233,.35);
+      line-height: 1; flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ===== COUNTER CARDS ===== */
+    .counter-card{
+      background: linear-gradient(135deg, rgba(14,165,233,.07), rgba(16,185,129,.05));
+      border: 1px solid rgba(14,165,233,.2);
+      border-radius: 14px;
+      padding: 18px 12px;
+      text-align: center;
+    }
+    .counter-val{
+      font-size: 1.8rem; font-weight: 900;
+      background: linear-gradient(135deg, #0ea5e9, #10b981);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+    .counter-label{ font-size: .75rem; color: var(--muted); margin-top: 5px; line-height: 1.3; }
+
+    /* ===== BAR CHART ===== */
+    .bar-row{ display: flex; align-items: center; gap: 12px; }
+    .bar-label{ min-width: 170px; font-size: .82rem; color: var(--muted); flex-shrink: 0; }
+    @media(max-width:600px){ .bar-label{ min-width: 110px; font-size: .75rem; } }
+    .bar-track{ flex: 1; background: rgba(148,163,184,.1); border-radius: 999px; height: 22px; overflow: hidden; }
+    .bar-fill{
+      height: 100%; border-radius: 999px;
+      width: 0%;
+      transition: width 1.2s cubic-bezier(.22,1,.36,1);
+      display: flex; align-items: center; justify-content: flex-end;
+      padding-right: 8px;
+    }
+    .bar-fill span{ font-size: .75rem; font-weight: 700; color: #fff; }
+
+    /* ===== DONUT ===== */
+    @keyframes donut-spin-in{
+      from{ stroke-dasharray: 0 440; }
+      to{ stroke-dasharray: 322 118; }
+    }
+
+    /* ===== TIMELINE SVG DOTS ===== */
+    .tl-dot{
+      opacity: 0;
+      animation: tl-pop .4s cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+    .tl-dot-final{ animation: tl-pop .4s cubic-bezier(.34,1.56,.64,1) forwards, tl-pulse 1.5s ease-in-out 1.5s infinite; }
+    @keyframes tl-pop{ from{ opacity:0; transform-origin: center; transform: scale(0); } to{ opacity:1; transform: scale(1); } }
+    @keyframes tl-pulse{ 0%,100%{ r:12; } 50%{ r:16; } }
+    .tl-line-anim{
+      stroke-dasharray: 580;
+      stroke-dashoffset: 580;
+      animation: tl-draw 1.5s ease forwards;
+    }
+    @keyframes tl-draw{ to{ stroke-dashoffset: 0; } }
+
+
+    /* ===== ANIMACIÓN: CARD FLIP ON HOVER ===== */
+    .counter-card{
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s;
+    }
+    .counter-card:hover{
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 12px 32px rgba(14,165,233,.25), 0 0 0 1px rgba(14,165,233,.3);
+    }
+
+    /* ===== ANIMACIÓN: BADGE PULSE ===== */
+    .badge.brand{
+      animation: badge-float 3s ease-in-out infinite;
+    }
+    @keyframes badge-float{
+      0%,100%{ box-shadow: 0 0 0 0 rgba(14,165,233,0); }
+      50%{ box-shadow: 0 0 12px 2px rgba(14,165,233,.28); }
+    }
+
+    /* ===== ANIMACIÓN: PILAR CARD GLOW ===== */
+    .pilar-card{
+      position: relative; overflow: hidden;
+    }
+    .pilar-card::after{
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at 50% 120%, rgba(14,165,233,.18), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+    .pilar-card:hover::after{ opacity: 1; }
+
+    /* ===== ANIMACIÓN: OBJETIVO SLIDE-IN ===== */
+    .obj-item{
+      transition: transform 0.3s ease, border-color 0.2s, box-shadow 0.3s;
+    }
+    .obj-item:hover{
+      transform: translateX(6px);
+      box-shadow: -3px 0 0 0 var(--brand), 0 4px 18px rgba(14,165,233,.12);
+    }
+
+    /* ===== ANIMACIÓN: LOGO SPIN ON HOVER ===== */
+    .brand .logo{
+      transition: transform 0.5s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
+    }
+    .brand:hover .logo{
+      transform: rotate(15deg) scale(1.12);
+      box-shadow: 0 0 22px rgba(14,165,233,.6), inset 0 0 30px rgba(255,255,255,.2);
+    }
+
+    /* ===== ANIMACIÓN: MATERIA ITEM WAVE ===== */
+    .materia-item{
+      transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .materia-item.relacionada:hover{
+      box-shadow: 0 4px 14px rgba(16,185,129,.2);
+    }
+
+    /* ===== ANIMACIÓN: TOPBAR LINK UNDERLINE ===== */
+    .topbar-nav-section a{
+      position: relative;
+    }
+    .topbar-nav-section a::after{
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 50%; right: 50%;
+      height: 2px;
+      background: var(--brand);
+      border-radius: 1px;
+      transition: left 0.25s ease, right 0.25s ease;
+    }
+    .topbar-nav-section a:hover::after{
+      left: 0; right: 0;
+    }
+
+    /* ===== ANIMACIÓN: SECCIÓN TOPBAR SEPARATOR GLOW ===== */
+    .topbar-brand-section,
+    .topbar-nav-section{
+      transition: border-color 0.3s;
+    }
+    .topbar:hover .topbar-brand-section,
+    .topbar:hover .topbar-nav-section{
+      border-color: rgba(14,165,233,.22);
+    }
+
+    /* ===== ANIMACIÓN: SCROLL INDICATOR en HERO ===== */
+    .scroll-hint{
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .78rem; color: var(--muted); margin-top: 12px;
+      animation: scroll-bounce 2s ease-in-out infinite;
+    }
+    @keyframes scroll-bounce{
+      0%,100%{ transform: translateY(0); opacity:.7; }
+      50%{ transform: translateY(4px); opacity:1; }
+    }
+
+    /* ===== ANIMACIÓN: MATERIA TEMAS HIGHLIGHT ===== */
+    .materia-temas-list li:hover{
+      background: rgba(14,165,233,.1);
+      border-color: rgba(14,165,233,.3);
+      transform: translateX(4px);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- BG PARTICLES -->
+  <div class="bg-particles" aria-hidden="true" id="bg-particles"></div>
+
+  <!-- TOPBAR -->
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <!-- SECCIÓN: Marca -->
+      <div class="topbar-brand-section">
+        <div class="brand">
+          <div class="logo">🛡️</div>
+          <span data-i18n="brand">Seguridad Digital</span>
+        </div>
+      </div>
+      <!-- SECCIÓN: Navegación rápida -->
+      <div class="topbar-nav-section">
+        <nav aria-label="Navegación principal">
+          <a href="#inicio" style="color:var(--muted);text-decoration:none;margin:0 10px;font-weight:600;font-size:.9rem;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">🏠 <span data-i18n="nav-inicio">Inicio</span></a>
+          <a href="#proyecto-detalle" style="color:var(--muted);text-decoration:none;margin:0 10px;font-weight:600;font-size:.9rem;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">📋 <span data-i18n="nav-proyecto">Proyecto</span></a>
+          <a href="#graficas-section" style="color:var(--muted);text-decoration:none;margin:0 10px;font-weight:600;font-size:.9rem;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">📊 <span data-i18n="nav-datos">Datos</span></a>
+        </nav>
+      </div>
+      <!-- SECCIÓN: Controles (idioma + menú) -->
+      <div class="topbar-controls-section">
+      <!-- LANG TOGGLE -->
+      <button id="lang-btn" onclick="toggleLang()" style="background:rgba(14,165,233,.15);border:1px solid rgba(14,165,233,.35);color:#bae6fd;border-radius:10px;padding:7px 14px;font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit;transition:background .2s,box-shadow .2s;letter-spacing:.3px;" title="Cambiar idioma">🌐 EN</button>
+      <!-- MENÚ 3 PUNTITOS — NAVEGACIÓN + MATERIAS -->
+      <div class="dots-menu-wrapper" id="dots-wrapper">
+        <button class="dots-btn" id="dots-btn" aria-label="Menú" title="Menú">⋮</button>
+        <div class="dots-dropdown" id="dots-dropdown" role="menu">
+
+          <!-- NAV LINKS -->
+          <h5>🔗 Navegación</h5>
+          <div class="nav-links-grid">
+            <a class="nav-link-item" href="#inicio" onclick="closeMenu()">🏠 Inicio</a>
+          </div>
+
+          <div style="height:1px; background:rgba(148,163,184,.12); margin: 10px 0;"></div>
+
+          <!-- MATERIAS -->
+          <h5 data-i18n="dots-materias-titulo">📚 Materias del proyecto</h5>
+          <div class="materias-grid">
+            <button class="materia-item relacionada" onclick="openMateria('matematicas');closeMenu()"><span class="materia-dot verde"></span>Matemáticas</button>
+            <button class="materia-item relacionada" onclick="openMateria('programacion');closeMenu()"><span class="materia-dot verde"></span>Programación</button>
+            <button class="materia-item relacionada" onclick="openMateria('emprendimiento');closeMenu()"><span class="materia-dot verde"></span>Emprendimiento</button>
+            <button class="materia-item relacionada" onclick="openMateria('orientacion');closeMenu()"><span class="materia-dot verde"></span>F. Orient. Laboral</button>
+            <button class="materia-item no-relacionada" onclick="openMateria('biologia');closeMenu()"><span class="materia-dot gris"></span>Biología</button>
+            <button class="materia-item relacionada" onclick="openMateria('soporte');closeMenu()"><span class="materia-dot verde"></span>Soporte Técnico</button>
+            <button class="materia-item relacionada" onclick="openMateria('disenoweb');closeMenu()"><span class="materia-dot verde"></span>Diseño Web</button>
+            <button class="materia-item relacionada" onclick="openMateria('lengua');closeMenu()"><span class="materia-dot verde"></span>Lengua y Lit.</button>
+            <button class="materia-item relacionada" onclick="openMateria('historia');closeMenu()"><span class="materia-dot verde"></span>Historia</button>
+            <button class="materia-item relacionada" onclick="openMateria('sistemas');closeMenu()"><span class="materia-dot verde"></span>Sist. Operativos</button>
+            <button class="materia-item relacionada" onclick="openMateria('ofimatica');closeMenu()"><span class="materia-dot verde"></span>Aplic. Ofimáticas</button>
+            <button class="materia-item no-relacionada" onclick="openMateria('fisica');closeMenu()"><span class="materia-dot gris"></span>Física</button>
+            <button class="materia-item no-relacionada" onclick="openMateria('edufisica');closeMenu()"><span class="materia-dot gris"></span>Edu. Física</button>
+            <button class="materia-item no-relacionada" onclick="openMateria('quimica');closeMenu()"><span class="materia-dot gris"></span>Química</button>
+            <button class="materia-item relacionada" onclick="openMateria('civica');closeMenu()"><span class="materia-dot verde"></span>Cívica</button>
+          </div>
+          <div class="dots-legend">
+            <span data-legend="dots-legend-rel"><span class="materia-dot verde" style="display:inline-block"></span> Relacionada</span>
+            <span data-legend="dots-legend-norel"><span class="materia-dot gris" style="display:inline-block"></span> No relacionada</span>
+          </div>
+        </div>
+      </div>
+      </div><!-- /topbar-controls-section -->
+    </div>
+  </header>
+
+  <!-- ===== MODAL DE MATERIA ===== -->
+  <div id="materia-modal" class="materia-backdrop" role="dialog" aria-modal="true" aria-labelledby="materia-modal-title" style="display:none;">
+    <div class="materia-panel">
+      <div class="materia-modal-header">
+        <span id="materia-modal-icon" class="materia-modal-icon"></span>
+        <h2 id="materia-modal-title"></h2>
+        <button class="materia-close-btn" onclick="closeMateria()" aria-label="Cerrar">✕</button>
+      </div>
+      <div id="materia-modal-body" class="materia-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="auth-backdrop" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="auth-panel">
+      <h2 id="auth-title">Inicia sesión</h2>
+      <p>Ingresa tu correo institucional para acceder al contenido.</p>
+      <form id="auth-form" class="auth-form" novalidate>
+        <label class="sr-only" for="auth-email">Correo electrónico</label>
+        <input id="auth-email" name="email" type="email" placeholder="tucuenta@colegio.edu" autocomplete="email" required />
+        <div id="auth-error" class="auth-error"></div>
+        <div class="auth-actions">
+          <button type="submit" class="btn">Entrar</button>
+          <button type="button" id="auth-skip" class="btn secondary">Invitado</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="page-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" aria-label="Panel lateral">
+
+      <!-- ROBOT ANIMADO -->
+      <div class="robot-container">
+        <div class="robot-particles" aria-hidden="true">
+          <div class="robot-particle"></div>
+          <div class="robot-particle"></div>
+          <div class="robot-particle"></div>
+        </div>
+        <h4>🛡️ Guía de Seguridad Digital</h4>
+        <div class="robot-wrap">
+          <svg class="robot-svg" viewBox="0 0 100 130" width="116" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Robot asistente animado">
+            <!-- Antena -->
+            <line class="robot-antenna" x1="50" y1="10" x2="50" y2="20" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round"/>
+            <circle class="robot-antenna" cx="50" cy="8" r="4" fill="#10b981"/>
+            <!-- Cabeza -->
+            <rect x="28" y="20" width="44" height="36" rx="10" fill="#0c1e36" stroke="#0ea5e9" stroke-width="1.5"/>
+            <!-- Brillo cabeza -->
+            <rect x="30" y="22" width="18" height="6" rx="3" fill="white" opacity=".05"/>
+            <!-- Ojos -->
+            <ellipse class="robot-eye-l" cx="40" cy="35" rx="6" ry="6" fill="#0ea5e9"/>
+            <ellipse class="robot-eye-r" cx="60" cy="35" rx="6" ry="6" fill="#0ea5e9"/>
+            <circle cx="40" cy="35" r="2.5" fill="#0b1220"/>
+            <circle cx="60" cy="35" r="2.5" fill="#0b1220"/>
+            <circle cx="41.2" cy="33.2" r="1" fill="white" opacity=".8"/>
+            <circle cx="61.2" cy="33.2" r="1" fill="white" opacity=".8"/>
+            <!-- Boca digital -->
+            <rect x="36" y="47" width="28" height="5" rx="2.5" fill="#0ea5e9" opacity=".7"/>
+            <rect x="40" y="47" width="5" height="5" fill="#10b981" opacity=".9"/>
+            <rect x="48" y="47" width="5" height="5" fill="#10b981" opacity=".9"/>
+            <rect x="56" y="47" width="5" height="5" fill="#10b981" opacity=".9"/>
+            <!-- Cuello -->
+            <rect x="44" y="56" width="12" height="7" rx="3" fill="#0c2a3f"/>
+            <!-- Cuerpo -->
+            <rect x="24" y="63" width="52" height="42" rx="10" fill="#0c1e36" stroke="#0ea5e9" stroke-width="1.5"/>
+            <!-- Panel pecho — escudo animado -->
+            <rect x="33" y="72" width="34" height="24" rx="6" fill="#0b1220" stroke="#0c2a3f" stroke-width="1"/>
+            <path class="robot-chest-glow" d="M50 74 L60 78 L60 85 Q60 90 50 93 Q40 90 40 85 L40 78 Z" fill="none" stroke="#0ea5e9" stroke-width="1.5" opacity=".8"/>
+            <rect class="robot-chest-glow" x="47" y="82" width="6" height="5" rx="1.5" fill="#0ea5e9" opacity=".8"/>
+            <path class="robot-chest-glow" d="M47 82 L47 79 Q47 76 50 76 Q53 76 53 79 L53 82" fill="none" stroke="#0ea5e9" stroke-width="1.2"/>
+            <!-- Brazos -->
+            <rect class="robot-arm-l" x="8" y="65" width="14" height="34" rx="7" fill="#0c1e36" stroke="#0ea5e9" stroke-width="1.5"/>
+            <rect class="robot-arm-r" x="78" y="65" width="14" height="34" rx="7" fill="#0c1e36" stroke="#0ea5e9" stroke-width="1.5"/>
+            <!-- Manos -->
+            <circle cx="15" cy="103" r="6" fill="#0c2a3f" stroke="#10b981" stroke-width="1"/>
+            <circle cx="85" cy="103" r="6" fill="#0c2a3f" stroke="#10b981" stroke-width="1"/>
+            <!-- Piernas -->
+            <rect class="robot-leg-l" x="33" y="105" width="14" height="20" rx="7" fill="#0c1e36" stroke="#0ea5e9" stroke-width="1.5"/>
+            <rect class="robot-leg-r" x="53" y="105" width="14" height="20" rx="7" fill="#0c1e36" stroke="#0ea5e9" stroke-width="1.5"/>
+            <!-- Pies -->
+            <rect x="30" y="121" width="20" height="7" rx="3.5" fill="#0c2a3f"/>
+            <rect x="50" y="121" width="20" height="7" rx="3.5" fill="#0c2a3f"/>
+          </svg>
+        </div>
+        <p class="robot-tip" id="robot-tip">Tip: <span id="robot-tip-text">Protege tu <span>privacidad</span> en línea</span></p>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-widget">
+        <h4>📊 En cifras globales</h4>
+        <div class="stat-item">
+          <span class="stat-icon">👤</span>
+          <div class="stat-info">
+            <span class="stat-label">Usuarios jóvenes (menores 18)</span>
+            <span class="stat-value">+1.000 M</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🔓</span>
+          <div class="stat-info">
+            <span class="stat-label">Ciberataques a menores (2023)</span>
+            <span class="stat-value">↑ 38%</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">📱</span>
+          <div class="stat-info">
+            <span class="stat-label">Edad promedio 1er smartphone</span>
+            <span class="stat-value">10–11 años</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🌐</span>
+          <div class="stat-info">
+            <span class="stat-label">Países con ley de ciberacoso</span>
+            <span class="stat-value">60+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress-widget">
+        <h4>📈 Conciencia digital joven</h4>
+        <div class="prog-row">
+          <div class="prog-label"><span>Privacidad en línea</span><span>72%</span></div>
+          <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="72"></div></div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label"><span>Detección de phishing</span><span>55%</span></div>
+          <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="55"></div></div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label"><span>Contraseñas seguras</span><span>63%</span></div>
+          <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="63"></div></div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label"><span>Reporte de ciberacoso</span><span>41%</span></div>
+          <div class="prog-bar-bg"><div class="prog-bar-fill" data-width="41"></div></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main id="inicio" class="main-content container">
+
+      <!-- ===== HERO INICIO ===== -->
+      <section class="hero" aria-labelledby="titulo-hero">
+        <div class="panel" style="position:relative; overflow:hidden;">
+          <div class="dot-grid"></div>
+          <div class="hero-inner">
+            <div>
+              <span class="badge brand fade-up visible" data-i18n="badge-hero">Proyecto Interdisciplinario · Jóvenes · Ecuador</span>
+              <h1 id="titulo-hero" class="fade-up fade-up-delay-1 visible" data-i18n="titulo-hero">Fortalecimiento de la conciencia crítica y la seguridad digital en jóvenes para un uso responsable del internet</h1>
+              <p class="muted fade-up fade-up-delay-2 visible" data-i18n="desc-hero">Un proyecto educativo que vincula 15 materias del currículo para desarrollar en los jóvenes las competencias digitales necesarias para navegar de forma segura, ética y crítica en el entorno digital del siglo XXI.</p>
+              <div class="cta fade-up fade-up-delay-3 visible">
+                <a class="btn" href="#proyecto-detalle" data-i18n="btn-ver">Ver el proyecto ↓</a>
+                <a class="btn secondary" href="#graficas-section" data-i18n="btn-datos">Ver estadísticas</a>
+              </div>
+              <div class="scroll-hint fade-up fade-up-delay-4 visible" aria-hidden="true">↓ scroll para explorar</div>
+            </div>
+            <div class="hero-img-wrap">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="200">
+                <defs>
+                  <radialGradient id="hg2" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#0ea5e9" stop-opacity=".25"/>
+                    <stop offset="100%" stop-color="transparent"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="100" cy="100" r="90" fill="url(#hg2)"/>
+                <rect x="55" y="60" width="90" height="65" rx="8" fill="#0b1220" stroke="#0ea5e9" stroke-width="2"/>
+                <rect x="58" y="63" width="84" height="59" rx="5" fill="#0f172a"/>
+                <rect class="shield-pulse" x="85" y="88" width="30" height="22" rx="5" fill="#0ea5e9" opacity=".9"/>
+                <path class="shield-pulse" d="M90 88 L90 82 Q90 74 100 74 Q110 74 110 82 L110 88" fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="100" cy="99" r="3.5" fill="#0b1220"/>
+                <rect x="98.5" y="99" width="3" height="6" rx="1.5" fill="#0b1220"/>
+                <circle cx="35" cy="55" r="16" fill="#1e1b4b" stroke="#10b981" stroke-width="1.5"/>
+                <text x="35" y="60" text-anchor="middle" font-size="13" fill="#10b981">📱</text>
+                <line x1="49" y1="63" x2="55" y2="75" stroke="#10b981" stroke-width="1" stroke-dasharray="3,2" opacity=".6"/>
+                <circle cx="165" cy="55" r="16" fill="#1e1b4b" stroke="#f59e0b" stroke-width="1.5"/>
+                <text x="165" y="60" text-anchor="middle" font-size="13" fill="#f59e0b">🌐</text>
+                <line x1="151" y1="63" x2="145" y2="75" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" opacity=".6"/>
+                <circle cx="35" cy="150" r="16" fill="#1e1b4b" stroke="#ef4444" stroke-width="1.5"/>
+                <text x="35" y="155" text-anchor="middle" font-size="13" fill="#ef4444">⚠️</text>
+                <line x1="49" y1="142" x2="55" y2="132" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" opacity=".6"/>
+                <circle cx="165" cy="150" r="16" fill="#1e1b4b" stroke="#a78bfa" stroke-width="1.5"/>
+                <text x="165" y="155" text-anchor="middle" font-size="13" fill="#a78bfa">🔐</text>
+                <line x1="151" y1="142" x2="145" y2="132" stroke="#a78bfa" stroke-width="1" stroke-dasharray="3,2" opacity=".6"/>
+                <rect x="90" y="125" width="20" height="8" rx="2" fill="#1e1b4b" stroke="#0ea5e9" stroke-width="1"/>
+                <rect x="80" y="133" width="40" height="5" rx="2.5" fill="#1e1b4b" stroke="#0ea5e9" stroke-width="1"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== DETALLE DEL PROYECTO ===== -->
+      <section id="proyecto-detalle" style="padding:0 20px; margin-bottom:8px;">
+
+        <!-- DESCRIPCIÓN DEL PROYECTO -->
+        <div class="card fade-up" style="margin-bottom:18px; position:relative; overflow:hidden;">
+          <div class="dot-grid"></div>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <span style="font-size:2.2rem;">🎯</span>
+            <div>
+              <h2 style="margin:0 0 4px;" data-i18n="h2-proyecto">Sobre el Proyecto</h2>
+              <span class="badge ok" data-i18n="badge-proyecto">Proyecto Interdisciplinario · 2025</span>
+            </div>
+          </div>
+          <p data-i18n="p-proyecto-1">Este proyecto nace de la necesidad urgente de preparar a los jóvenes ecuatorianos para los desafíos del mundo digital. En un contexto donde el 94% de los adolescentes está conectado a internet y los ciberataques a menores aumentaron un 38% en 2023, la educación en seguridad digital ya no es opcional: es una competencia ciudadana fundamental.</p>
+          <p data-i18n="p-proyecto-2">A través de un enfoque interdisciplinario que vincula 15 materias del currículo escolar, este proyecto busca que los estudiantes no solo aprendan a protegerse en línea, sino que desarrollen el pensamiento crítico necesario para comprender, cuestionar y transformar el entorno digital en el que viven.</p>
+
+          <!-- Pilares animados -->
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:12px; margin-top:20px;" id="pilares-grid">
+            <div class="pilar-card" style="--c:#0ea5e9">
+              <div class="pilar-icon">🛡️</div>
+              <div class="pilar-title" data-i18n="pilar1">Seguridad Digital</div>
+              <div class="pilar-desc" data-i18n="pilar1d">Protección frente a amenazas cibernéticas reales</div>
+            </div>
+            <div class="pilar-card" style="--c:#10b981">
+              <div class="pilar-icon">🧠</div>
+              <div class="pilar-title" data-i18n="pilar2">Pensamiento Crítico</div>
+              <div class="pilar-desc" data-i18n="pilar2d">Análisis y evaluación del entorno digital</div>
+            </div>
+            <div class="pilar-card" style="--c:#f59e0b">
+              <div class="pilar-icon">⚖️</div>
+              <div class="pilar-title" data-i18n="pilar3">Ciudadanía Digital</div>
+              <div class="pilar-desc" data-i18n="pilar3d">Derechos, deberes y ética en internet</div>
+            </div>
+            <div class="pilar-card" style="--c:#a78bfa">
+              <div class="pilar-icon">🌐</div>
+              <div class="pilar-title" data-i18n="pilar4">Uso Responsable</div>
+              <div class="pilar-desc" data-i18n="pilar4d">Hábitos saludables y seguros en la red</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OBJETIVOS -->
+        <div class="card fade-up" style="margin-bottom:18px;">
+          <h2 style="margin:0 0 16px; display:flex; align-items:center; gap:10px;" data-i18n="h2-obj"><span>🎯</span> Objetivos del Proyecto</h2>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px;">
+            <div class="obj-item"><span class="obj-num">01</span><div><strong data-i18n="obj1t">Fortalecer la conciencia crítica</strong><p class="muted" style="margin:4px 0 0;" data-i18n="obj1d">Desarrollar en los jóvenes la capacidad de analizar, cuestionar y evaluar la información digital de forma autónoma y fundamentada.</p></div></div>
+            <div class="obj-item"><span class="obj-num">02</span><div><strong data-i18n="obj2t">Promover la seguridad digital</strong><p class="muted" style="margin:4px 0 0;" data-i18n="obj2d">Enseñar prácticas concretas de protección de datos, privacidad y defensa ante amenazas como phishing, ciberacoso y malware.</p></div></div>
+            <div class="obj-item"><span class="obj-num">03</span><div><strong data-i18n="obj3t">Integrar el currículo</strong><p class="muted" style="margin:4px 0 0;" data-i18n="obj3d">Vincular la seguridad digital con todas las materias del currículo escolar, mostrando su relevancia transversal en cada área del conocimiento.</p></div></div>
+            <div class="obj-item"><span class="obj-num">04</span><div><strong data-i18n="obj4t">Formar ciudadanos digitales</strong><p class="muted" style="margin:4px 0 0;" data-i18n="obj4d">Preparar a los estudiantes para participar de manera ética, responsable y activa en los entornos digitales de la vida adulta.</p></div></div>
+          </div>
+        </div>
+
+        <!-- MATERIAS RELACIONADAS -->
+        <div class="home-subjects-panel fade-up" style="margin-bottom:18px;">
+          <h3 id="materias-title">✅ <span data-i18n="h3-materias">Materias vinculadas al proyecto</span></h3>
+          <p data-i18n="p-materias">Las siguientes asignaturas aportan directamente al <strong>fortalecimiento de la conciencia crítica y la seguridad digital en jóvenes para un uso responsable del internet</strong>:</p>
+          <div class="home-subjects-tags">
+            <span class="subj-tag">📐 Matemáticas</span>
+            <span class="subj-tag">💻 Programación</span>
+            <span class="subj-tag">📊 Emprendimiento y Gestión</span>
+            <span class="subj-tag">🧭 Formación Orientación Laboral</span>
+            <span class="subj-tag">🔧 Soporte Técnico</span>
+            <span class="subj-tag">🌐 Diseño Web</span>
+            <span class="subj-tag">📖 Lengua y Literatura</span>
+            <span class="subj-tag">📜 Historia</span>
+            <span class="subj-tag">🖥️ Sistemas Operativos</span>
+            <span class="subj-tag">📁 Aplicaciones Ofimáticas</span>
+            <span class="subj-tag">⚖️ Cívica</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===== GRÁFICAS ANIMADAS ===== -->
+      <section id="graficas-section" style="padding:0 20px; margin-bottom:8px;">
+
+        <div class="card fade-up" style="margin-bottom:18px;">
+          <h2 style="margin:0 0 6px;" data-i18n="h2-graficas">📊 Estadísticas del Proyecto</h2>
+          <p class="muted" style="margin:0 0 20px;" data-i18n="p-graficas">Datos clave sobre seguridad digital y jóvenes en Ecuador y el mundo</p>
+
+          <!-- COUNTERS ANIMADOS -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:14px; margin-bottom:28px;">
+            <div class="counter-card">
+              <div class="counter-val" data-target="94" data-suffix="%">0%</div>
+              <div class="counter-label" data-i18n="cnt1">Adolescentes conectados</div>
+            </div>
+            <div class="counter-card">
+              <div class="counter-val" data-target="38" data-suffix="%↑">0%↑</div>
+              <div class="counter-label" data-i18n="cnt2">Ciberataques a menores (2023)</div>
+            </div>
+            <div class="counter-card">
+              <div class="counter-val" data-target="15" data-suffix="">0</div>
+              <div class="counter-label" data-i18n="cnt3">Materias integradas</div>
+            </div>
+            <div class="counter-card">
+              <div class="counter-val" data-target="7" data-suffix="h">0h</div>
+              <div class="counter-label" data-i18n="cnt4">Pantalla diaria promedio</div>
+            </div>
+          </div>
+
+          <!-- GRÁFICA DE BARRAS: Conciencia digital por área -->
+          <h3 style="margin:0 0 14px; font-size:1rem;" data-i18n="h3-bar">Nivel de conciencia digital por área (jóvenes 13-17 años)</h3>
+          <div id="bar-chart" style="display:flex; flex-direction:column; gap:10px; margin-bottom:28px;">
+            <div class="bar-row"><span class="bar-label" data-i18n="bar1">Privacidad en línea</span><div class="bar-track"><div class="bar-fill" data-w="72" style="background:linear-gradient(90deg,#0ea5e9,#38bdf8)"><span>72%</span></div></div></div>
+            <div class="bar-row"><span class="bar-label" data-i18n="bar2">Detección de phishing</span><div class="bar-track"><div class="bar-fill" data-w="55" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)"><span>55%</span></div></div></div>
+            <div class="bar-row"><span class="bar-label" data-i18n="bar3">Contraseñas seguras</span><div class="bar-track"><div class="bar-fill" data-w="63" style="background:linear-gradient(90deg,#10b981,#34d399)"><span>63%</span></div></div></div>
+            <div class="bar-row"><span class="bar-label" data-i18n="bar4">Reporte de ciberacoso</span><div class="bar-track"><div class="bar-fill" data-w="41" style="background:linear-gradient(90deg,#ef4444,#f87171)"><span>41%</span></div></div></div>
+            <div class="bar-row"><span class="bar-label" data-i18n="bar5">Verificación de fuentes</span><div class="bar-track"><div class="bar-fill" data-w="49" style="background:linear-gradient(90deg,#a78bfa,#c4b5fd)"><span>49%</span></div></div></div>
+            <div class="bar-row"><span class="bar-label" data-i18n="bar6">Ciudadanía digital</span><div class="bar-track"><div class="bar-fill" data-w="58" style="background:linear-gradient(90deg,#0ea5e9,#10b981)"><span>58%</span></div></div></div>
+          </div>
+
+          <!-- GRÁFICA DONUT SVG: Materias relacionadas vs no -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:center; flex-wrap:wrap;">
+            <div>
+              <h3 style="margin:0 0 10px; font-size:1rem;" data-i18n="h3-donut">Distribución de materias</h3>
+              <svg viewBox="0 0 200 200" width="100%" style="max-width:200px; display:block; margin:0 auto;">
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#1e293b" stroke-width="28"/>
+                <!-- 11 de 15 = 73% relacionadas → 2πr * 0.73 ≈ 322 de 440 -->
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#10b981" stroke-width="28"
+                  stroke-dasharray="322 118" stroke-dashoffset="110"
+                  style="transition:stroke-dasharray 1.5s ease; animation: donut-spin-in 1.5s ease forwards;"
+                  class="donut-arc-green"/>
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#334155" stroke-width="28"
+                  stroke-dasharray="118 322" stroke-dashoffset="-212"
+                  class="donut-arc-gray"/>
+                <text x="100" y="96" text-anchor="middle" font-size="22" font-weight="800" fill="#e5e7eb">11</text>
+                <text x="100" y="113" text-anchor="middle" font-size="10" fill="#94a3b8" font-family="Inter,sans-serif" data-i18n="donut-rel">relacionadas</text>
+              </svg>
+            </div>
+            <div>
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span style="width:14px;height:14px;border-radius:4px;background:#10b981;display:inline-block;flex-shrink:0;"></span>
+                  <span style="font-size:.9rem;" data-i18n="legend1">11 materias relacionadas (73%)</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span style="width:14px;height:14px;border-radius:4px;background:#334155;display:inline-block;flex-shrink:0;"></span>
+                  <span style="font-size:.9rem;" data-i18n="legend2">4 materias no relacionadas (27%)</span>
+                </div>
+                <div style="margin-top:8px; padding:12px; background:rgba(16,185,129,.07); border-radius:10px; border:1px solid rgba(16,185,129,.2);">
+                  <p style="margin:0; font-size:.85rem; color:#d1fae5;" data-i18n="legend-note">El 73% del currículo puede integrarse directamente en la educación sobre seguridad digital y uso responsable del internet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LÍNEA DE TIEMPO SVG ANIMADA -->
+          <h3 style="margin:28px 0 14px; font-size:1rem;" data-i18n="h3-timeline">Evolución del proyecto en el tiempo</h3>
+          <div style="overflow-x:auto; padding-bottom:8px;">
+            <svg viewBox="0 0 700 120" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:500px; height:120px;">
+              <!-- Línea base animada -->
+              <line x1="60" y1="60" x2="640" y2="60" stroke="rgba(148,163,184,.2)" stroke-width="2"/>
+              <line x1="60" y1="60" x2="640" y2="60" stroke="url(#tl-grad)" stroke-width="2" class="tl-line-anim"/>
+              <defs>
+                <linearGradient id="tl-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#0ea5e9"/>
+                  <stop offset="100%" stop-color="#10b981"/>
+                </linearGradient>
+              </defs>
+              <!-- Puntos y etiquetas -->
+              <circle cx="60" cy="60" r="10" fill="#0ea5e9" class="tl-dot" style="animation-delay:0s"/>
+              <text x="60" y="92" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="Inter,sans-serif">Diagnóstico</text>
+              <text x="60" y="103" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter,sans-serif">Feb 2025</text>
+
+              <circle cx="185" cy="60" r="10" fill="#38bdf8" class="tl-dot" style="animation-delay:.2s"/>
+              <text x="185" y="92" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="Inter,sans-serif">Diseño</text>
+              <text x="185" y="103" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter,sans-serif">Mar 2025</text>
+
+              <circle cx="310" cy="60" r="10" fill="#10b981" class="tl-dot" style="animation-delay:.4s"/>
+              <text x="310" y="92" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="Inter,sans-serif">Desarrollo</text>
+              <text x="310" y="103" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter,sans-serif">Abr 2025</text>
+
+              <circle cx="435" cy="60" r="10" fill="#f59e0b" class="tl-dot" style="animation-delay:.6s"/>
+              <text x="435" y="92" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="Inter,sans-serif">Aplicación</text>
+              <text x="435" y="103" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter,sans-serif">May 2025</text>
+
+              <circle cx="560" cy="60" r="10" fill="#a78bfa" class="tl-dot" style="animation-delay:.8s"/>
+              <text x="560" y="92" text-anchor="middle" font-size="9.5" fill="#94a3b8" font-family="Inter,sans-serif">Evaluación</text>
+              <text x="560" y="103" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter,sans-serif">Jun 2025</text>
+
+              <circle cx="640" cy="60" r="12" fill="#ef4444" class="tl-dot tl-dot-final" style="animation-delay:1s"/>
+              <text x="640" y="14" text-anchor="middle" font-size="9.5" fill="#fca5a5" font-family="Inter,sans-serif" font-weight="700">🏁 Cierre</text>
+              <line x1="640" y1="48" x2="640" y2="20" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" opacity=".6"/>
+
+              <!-- Labels iconos -->
+              <text x="60" y="56" text-anchor="middle" font-size="10" fill="white">1</text>
+              <text x="185" y="56" text-anchor="middle" font-size="10" fill="white">2</text>
+              <text x="310" y="56" text-anchor="middle" font-size="10" fill="white">3</text>
+              <text x="435" y="56" text-anchor="middle" font-size="10" fill="white">4</text>
+              <text x="560" y="56" text-anchor="middle" font-size="10" fill="white">5</text>
+            </svg>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ===== MATERIA INLINE CONTENT ===== -->
+      <section id="materia-inline-section" aria-live="polite" style="margin-top:24px; padding:0 20px;">
+        <!-- populated by JS -->
+      </section>
+
+      <!-- QUÉ ES LA SEGURIDAD DIGITAL -->
+      <section id="que-es" class="grid" aria-labelledby="que-es-title" style="display:none;">
+        <div class="card fade-up" style="grid-column: 1 / -1;">
+          <!-- SVG animado temático en lugar de imagen -->
+          <svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:160px;border-radius:10px;margin-bottom:16px;display:block;">
+            <defs>
+              <linearGradient id="bg-qe" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#071524"/>
+                <stop offset="100%" stop-color="#0a1e2e"/>
+              </linearGradient>
+              <radialGradient id="glow-qe" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#0ea5e9" stop-opacity=".15"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </radialGradient>
+            </defs>
+            <rect width="700" height="160" fill="url(#bg-qe)"/>
+            <ellipse cx="350" cy="80" rx="300" ry="60" fill="url(#glow-qe)"/>
+            <!-- Nodos de seguridad -->
+            <circle cx="80" cy="80" r="34" fill="none" stroke="#0ea5e9" stroke-width="1" opacity=".3"/>
+            <circle cx="80" cy="80" r="24" fill="#0b1e30" stroke="#0ea5e9" stroke-width="1.5"/>
+            <text x="80" y="87" text-anchor="middle" font-size="20" fill="#0ea5e9">🛡️</text>
+            <text x="80" y="124" text-anchor="middle" font-size="11" fill="#64748b" font-family="Inter,sans-serif">Protección</text>
+
+            <circle cx="220" cy="55" r="22" fill="#0b1e30" stroke="#10b981" stroke-width="1.5"/>
+            <text x="220" y="62" text-anchor="middle" font-size="18" fill="#10b981">🔒</text>
+            <text x="220" y="93" text-anchor="middle" font-size="11" fill="#64748b" font-family="Inter,sans-serif">Privacidad</text>
+
+            <circle cx="350" cy="80" r="28" fill="#0b1e30" stroke="#f59e0b" stroke-width="2"/>
+            <text x="350" y="88" text-anchor="middle" font-size="22" fill="#f59e0b">⚡</text>
+            <text x="350" y="124" text-anchor="middle" font-size="11" fill="#64748b" font-family="Inter,sans-serif">Conciencia</text>
+
+            <circle cx="480" cy="55" r="22" fill="#0b1e30" stroke="#a78bfa" stroke-width="1.5"/>
+            <text x="480" y="62" text-anchor="middle" font-size="18" fill="#a78bfa">🧠</text>
+            <text x="480" y="93" text-anchor="middle" font-size="11" fill="#64748b" font-family="Inter,sans-serif">Pensamiento Crítico</text>
+
+            <circle cx="620" cy="80" r="24" fill="#0b1e30" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="620" y="87" text-anchor="middle" font-size="20" fill="#ef4444">🌐</text>
+            <text x="620" y="121" text-anchor="middle" font-size="11" fill="#64748b" font-family="Inter,sans-serif">Ciudadanía</text>
+
+            <!-- Líneas conectoras animadas -->
+            <line x1="104" y1="74" x2="198" y2="63" stroke="#0ea5e9" stroke-width="1.2" stroke-dasharray="5,3" opacity=".5"/>
+            <line x1="242" y1="60" x2="322" y2="72" stroke="#10b981" stroke-width="1.2" stroke-dasharray="5,3" opacity=".5"/>
+            <line x1="378" y1="72" x2="458" y2="62" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="5,3" opacity=".5"/>
+            <line x1="502" y1="62" x2="596" y2="74" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="5,3" opacity=".5"/>
+          </svg>
+          <h2 id="que-es-title">¿Qué es la seguridad digital y por qué importa en jóvenes?</h2>
+          <p>La <strong>seguridad digital</strong> es el conjunto de prácticas, conocimientos y herramientas que permiten a las personas proteger su información, identidad y bienestar en entornos digitales. Para los jóvenes, que crecen completamente inmersos en internet, redes sociales y dispositivos conectados, esta competencia es tan fundamental como aprender a leer o a conducir.</p>
+          <p>La <strong>conciencia crítica digital</strong> va más allá de instalar un antivirus: implica comprender cómo funciona la información en línea, reconocer manipulaciones, proteger la privacidad y participar de manera ética y responsable en comunidades digitales.</p>
+          <ul>
+            <li><strong>Privacidad:</strong> control sobre qué datos se comparten y con quién.</li>
+            <li><strong>Seguridad:</strong> protección frente a amenazas como malware, phishing y estafas.</li>
+            <li><strong>Alfabetización mediática:</strong> capacidad de evaluar fuentes y detectar desinformación.</li>
+            <li><strong>Ciudadanía digital:</strong> uso ético, responsable y empático en el entorno en línea.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- HISTORIA -->
+      <section id="historia" class="grid" aria-labelledby="historia-title" style="display:none;">
+        <div class="card fade-up" style="grid-column: 1 / -1;">
+          <img
+            class="section-img"
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&q=80&auto=format&fit=crop"
+            alt="Circuitos electrónicos - historia de la informática"
+            loading="lazy"
+          />
+          <h2 id="historia-title">Historia de la seguridad digital</h2>
+          <p class="muted">Un recorrido desde los primeros ordenadores hasta la era de la inteligencia artificial y los jóvenes hiperconectados.</p>
+
+          <div class="hist-timeline">
+
+            <div class="hist-step fade-up fade-up-delay-1">
+              <div class="hist-dot">1</div>
+              <span class="hist-year">1960s – 1970s: Los primeros pasos</span>
+              <h3>ARPANET y el nacimiento de la red</h3>
+              <p>En 1969, el Departamento de Defensa de EE. UU. creó ARPANET, la red precursora de internet. En esa época, la seguridad informática era casi inexistente: las redes eran cerradas, los usuarios conocidos y la preocupación por la protección de datos era mínima. En 1971 apareció <strong>Creeper</strong>, considerado el primer programa autorreplicante de la historia, que se propagó por ARPANET mostrando el mensaje "I'm the creeper, catch me if you can!". Poco después surgió <strong>Reaper</strong>, el primer antivirus, creado para eliminarlo.</p>
+            </div>
+
+            <div class="hist-step fade-up fade-up-delay-2">
+              <div class="hist-dot">2</div>
+              <span class="hist-year">1980s: Los primeros virus y la alarma social</span>
+              <h3>La era de los virus en disquetes</h3>
+              <p>Con la masificación del ordenador personal (PC), los virus comenzaron a propagarse mediante disquetes. En 1986 apareció <strong>Brain</strong>, el primer virus para PC, creado por dos hermanos paquistaníes para proteger su software médico de piratería. Más tarde, el <strong>Gusano Morris</strong> (1988) colapsó miles de ordenadores conectados a ARPANET, siendo el primer gran incidente de ciberseguridad documentado. La respuesta fue la creación del primer <strong>CERT (Computer Emergency Response Team)</strong> en la Universidad Carnegie Mellon. La opinión pública comenzó a tomar conciencia de los riesgos digitales.</p>
+            </div>
+
+            <div class="hist-step fade-up fade-up-delay-3">
+              <div class="hist-dot">3</div>
+              <span class="hist-year">1990s: Internet llega a los hogares y a los jóvenes</span>
+              <h3>La World Wide Web y los primeros riesgos para menores</h3>
+              <p>Con la creación de la <strong>World Wide Web</strong> por Tim Berners-Lee en 1991 y su apertura al público, internet llegó a millones de hogares. Los niños y adolescentes comenzaron a conectarse a través de salas de chat como IRC y más tarde AOL Instant Messenger. Aparecieron los primeros casos documentados de <strong>grooming</strong> (captación de menores) y las primeras preocupaciones sobre contenido inapropiado en línea. En 1996, EE. UU. aprobó el <strong>Communications Decency Act</strong>, el primer intento legislativo de proteger a los menores en internet. En paralelo, proliferaron los virus de macro en documentos de Office y el correo no deseado (spam).</p>
+            </div>
+
+            <div class="hist-step fade-up fade-up-delay-4">
+              <div class="hist-dot">4</div>
+              <span class="hist-year">2000s: El auge de internet y las primeras grandes crisis</span>
+              <h3>Redes sociales, phishing y ciberacoso</h3>
+              <p>El año 2000 comenzó con el gusano <strong>ILOVEYOU</strong>, que infectó más de 45 millones de ordenadores en pocas horas y causó pérdidas de miles de millones de dólares. Con el surgimiento de <strong>MySpace</strong> (2003), <strong>Facebook</strong> (2004) y <strong>YouTube</strong> (2005), los jóvenes se convirtieron en los usuarios más activos de las redes sociales. Comenzaron a documentarse los primeros casos masivos de <strong>ciberacoso (cyberbullying)</strong>, con consecuencias devastadoras para la salud mental de adolescentes. Organizaciones como <strong>Internet Watch Foundation</strong> e <strong>i-SAFE</strong> en EE. UU. iniciaron programas educativos en escuelas sobre seguridad en internet.</p>
+            </div>
+
+            <div class="hist-step fade-up fade-up-delay-5">
+              <div class="hist-dot">5</div>
+              <span class="hist-year">2010s: Smartphones, privacidad y educación digital</span>
+              <h3>La generación móvil y las políticas educativas</h3>
+              <p>La masificación del <strong>smartphone</strong> puso internet en el bolsillo de los adolescentes las 24 horas del día. El escándalo de <strong>Cambridge Analytica</strong> (2018) reveló cómo los datos de millones de usuarios de Facebook habían sido utilizados sin consentimiento, generando un debate global sobre privacidad. La Unión Europea aprobó el <strong>RGPD</strong> (Reglamento General de Protección de Datos) en 2018, con reglas especiales para menores. En América Latina, países como México, Colombia y Ecuador comenzaron a integrar la <strong>educación en seguridad digital</strong> en sus currículos escolares. Surgieron conceptos como la <strong>huella digital</strong> y la <strong>identidad digital</strong> como contenidos educativos.</p>
+            </div>
+
+            <div class="hist-step fade-up fade-up-delay-6">
+              <div class="hist-dot">6</div>
+              <span class="hist-year">2020s: Pandemia, IA y nuevos desafíos</span>
+              <h3>Hiperconectividad, deepfakes y ciudadanía digital crítica</h3>
+              <p>La pandemia de COVID-19 (2020-2021) aceleró la digitalización educativa: millones de jóvenes pasaron a estudiar íntegramente en línea, lo que multiplicó los riesgos de exposición digital. El auge de <strong>TikTok</strong>, plataformas de streaming y videojuegos en línea intensificó las preocupaciones sobre adicción digital, grooming y desinformación. La aparición de los <strong>deepfakes</strong> y la inteligencia artificial generativa planteó nuevos retos para la alfabetización mediática. Organismos como <strong>UNICEF</strong> y la <strong>UNESCO</strong> publicaron marcos globales para la educación en ciudadanía digital, poniendo el énfasis en la <strong>conciencia crítica</strong> como herramienta esencial de protección.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- HITOS VISUALES CON IMÁGENES REALES -->
+      <section id="hitos" class="grid cols-3" aria-labelledby="hitos-title" style="display:none;">
+        <h2 id="hitos-title" class="sr-only">Hitos clave</h2>
+
+        <article class="card-with-img fade-up fade-up-delay-1">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80&auto=format&fit=crop" alt="Código en pantalla verde - primeros virus informáticos" loading="lazy"/>
+          </div>
+          <div class="card-body">
+            <span class="badge warn">1988</span>
+            <h3>🐛 Gusano Morris</h3>
+            <p class="muted">El primer gran incidente de ciberseguridad en la historia. Propagado en ARPANET, infectó miles de equipos y forzó la creación del primer CERT del mundo.</p>
+          </div>
+        </article>
+
+        <article class="card-with-img fade-up fade-up-delay-2">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80&auto=format&fit=crop" alt="Joven usando redes sociales en smartphone" loading="lazy"/>
+          </div>
+          <div class="card-body">
+            <span class="badge brand">2004–2010</span>
+            <h3>📱 Era de las redes sociales</h3>
+            <p class="muted">Facebook, YouTube, Twitter y más tarde Instagram transformaron la socialización juvenil. El ciberacoso se convirtió en un problema de salud pública reconocido globalmente.</p>
+          </div>
+        </article>
+
+        <article class="card-with-img fade-up fade-up-delay-3">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&q=80&auto=format&fit=crop" alt="Candado de seguridad digital y datos privados" loading="lazy"/>
+          </div>
+          <div class="card-body">
+            <span class="badge ok">2018</span>
+            <h3>🔏 RGPD y privacidad</h3>
+            <p class="muted">El Reglamento General de Protección de Datos de la UE estableció el derecho de los menores a proteger sus datos personales. Marcó un antes y un después en la regulación digital.</p>
+          </div>
+        </article>
+
+        <article class="card-with-img fade-up fade-up-delay-4">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&q=80&auto=format&fit=crop" alt="Estudiantes aprendiendo en computadoras - educación digital" loading="lazy"/>
+          </div>
+          <div class="card-body">
+            <span class="badge brand">2010s</span>
+            <h3>🎓 Educación en ciberseguridad</h3>
+            <p class="muted">Países de todo el mundo comenzaron a integrar la seguridad digital en los currículos escolares. Programas como "Be Internet Awesome" de Google llegaron a millones de niños.</p>
+          </div>
+        </article>
+
+        <article class="card-with-img fade-up fade-up-delay-5">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=600&q=80&auto=format&fit=crop" alt="Niño usando computadora en casa - pandemia y educación virtual" loading="lazy"/>
+          </div>
+          <div class="card-body">
+            <span class="badge warn">2020–2021</span>
+            <h3>💻 Pandemia y educación virtual</h3>
+            <p class="muted">El confinamiento aceleró la digitalización escolar. El tiempo de pantalla de los jóvenes se disparó, aumentando también los riesgos de exposición a contenidos dañinos y ciberacoso.</p>
+          </div>
+        </article>
+
+        <article class="card-with-img fade-up fade-up-delay-6">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop" alt="Inteligencia artificial y pantalla futurista" loading="lazy"/>
+          </div>
+          <div class="card-body">
+            <span class="badge ok">2023–Hoy</span>
+            <h3>🤖 IA y nuevos retos</h3>
+            <p class="muted">Los deepfakes, la desinformación generada por IA y el uso irresponsable de datos plantean desafíos inéditos. La conciencia crítica digital se convierte en la competencia del siglo XXI.</p>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- EDUCACIÓN DIGITAL -->
+      <section id="educacion" class="grid" aria-labelledby="educacion-title" style="display:none;">
+        <div class="card fade-up" style="grid-column: 1 / -1;">
+          <img
+            class="section-img"
+            src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1000&q=80&auto=format&fit=crop"
+            alt="Jóvenes estudiantes trabajando con tecnología en el aula"
+            loading="lazy"
+          />
+          <h2 id="educacion-title">Educación para la ciudadanía digital: claves históricas</h2>
+          <p>La educación en seguridad digital no surgió de un día para otro. Fue el resultado de décadas de investigación, incidentes críticos y movilización social. Estos son los enfoques que han marcado su evolución:</p>
+
+          <div class="grid cols-2" style="margin-top:16px;">
+            <div class="card fade-up fade-up-delay-1" style="padding:16px;">
+              <h3>🏫 Primer enfoque: filtrado y restricción (1990s–2000s)</h3>
+              <p class="muted">Las primeras estrategias educativas se basaron en bloquear el acceso a contenidos considerados peligrosos mediante software de filtrado. Si bien útiles, estos enfoques no enseñaban a los jóvenes a tomar decisiones propias.</p>
+            </div>
+            <div class="card fade-up fade-up-delay-2" style="padding:16px;">
+              <h3>📚 Segundo enfoque: reglas y normativas (2000s–2010s)</h3>
+              <p class="muted">Se desarrollaron reglamentos escolares sobre uso de dispositivos y códigos de conducta digital. Las campañas institucionales comenzaron a alertar sobre el ciberacoso y el grooming, pero con un enfoque principalmente reactivo.</p>
+            </div>
+            <div class="card fade-up fade-up-delay-3" style="padding:16px;">
+              <h3>🧠 Tercer enfoque: pensamiento crítico (2010s–presente)</h3>
+              <p class="muted">El modelo actual pone el foco en empoderar al joven como agente crítico: enseñar a evaluar fuentes, gestionar la privacidad, reconocer manipulaciones y actuar éticamente. Organizaciones como UNICEF, UNESCO e ISTE lideran este enfoque globalmente.</p>
+            </div>
+            <div class="card fade-up fade-up-delay-4" style="padding:16px;">
+              <h3>🌐 Cuarto enfoque: ciudadanía digital integral (hoy)</h3>
+              <p class="muted">La ciudadanía digital combina derechos y responsabilidades en línea. Incluye bienestar emocional, participación democrática, economía de los datos e identidad en línea. Es un marco interdisciplinar que involucra a familias, escuelas y comunidades.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MATEMÁTICA DE LA SEGURIDAD DIGITAL -->
+      <section id="matematica" class="grid" aria-labelledby="matematica-title" style="display:none;">
+        <div class="card fade-up" style="grid-column: 1 / -1; position:relative; overflow:hidden;">
+          <div class="dot-grid"></div>
+
+          <!-- SVG decorativo matemático -->
+          <svg viewBox="0 0 700 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:170px;border-radius:10px;margin-bottom:20px;display:block;">
+            <defs>
+              <linearGradient id="bg-math" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#071a2c"/>
+                <stop offset="100%" stop-color="#0c1f0f"/>
+              </linearGradient>
+              <radialGradient id="glow-math" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#10b981" stop-opacity=".18"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </radialGradient>
+            </defs>
+            <rect width="700" height="170" fill="url(#bg-math)"/>
+            <ellipse cx="350" cy="85" rx="320" ry="70" fill="url(#glow-math)"/>
+
+            <!-- Fórmulas flotantes -->
+            <text x="40" y="50" font-size="14" fill="#10b981" font-family="monospace" opacity=".85">p × q = n</text>
+            <text x="40" y="75" font-size="12" fill="#0ea5e9" font-family="monospace" opacity=".7">gcd(e, φ(n)) = 1</text>
+            <text x="40" y="100" font-size="11" fill="#94a3b8" font-family="monospace" opacity=".55">C = M^e mod n</text>
+            <text x="40" y="122" font-size="11" fill="#94a3b8" font-family="monospace" opacity=".45">M = C^d mod n</text>
+
+            <!-- Candado central -->
+            <rect x="295" y="50" width="110" height="80" rx="12" fill="#0b1e30" stroke="#10b981" stroke-width="2"/>
+            <path d="M318 50 L318 37 Q318 20 350 20 Q382 20 382 37 L382 50" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="350" cy="85" r="12" fill="#10b981" opacity=".9"/>
+            <rect x="347" y="85" width="6" height="14" rx="3" fill="#0b1e30"/>
+            <!-- Luz del candado -->
+            <circle cx="350" cy="80" r="28" fill="none" stroke="#10b981" stroke-width="1" opacity=".2"/>
+
+            <!-- Bits fluyendo -->
+            <text x="450" y="45" font-size="11" fill="#10b981" font-family="monospace" opacity=".6">1 0 1 1 0 0 1 0</text>
+            <text x="460" y="65" font-size="11" fill="#0ea5e9" font-family="monospace" opacity=".5">0 1 0 0 1 1 0 1</text>
+            <text x="445" y="85" font-size="11" fill="#10b981" font-family="monospace" opacity=".55">1 1 0 1 0 1 0 0</text>
+            <text x="455" y="105" font-size="11" fill="#0ea5e9" font-family="monospace" opacity=".45">0 0 1 0 1 0 1 1</text>
+            <text x="448" y="125" font-size="11" fill="#10b981" font-family="monospace" opacity=".4">1 0 0 1 1 0 1 0</text>
+
+            <!-- Líneas de conexión -->
+            <line x1="150" y1="85" x2="295" y2="85" stroke="#10b981" stroke-width="1" stroke-dasharray="6,3" opacity=".4"/>
+            <line x1="405" y1="85" x2="445" y2="85" stroke="#0ea5e9" stroke-width="1" stroke-dasharray="6,3" opacity=".4"/>
+
+            <!-- Ecuación SHA -->
+            <text x="200" y="145" font-size="11" fill="#f59e0b" font-family="monospace" opacity=".65">SHA-256: H(x) → 256 bits</text>
+            <text x="380" y="145" font-size="11" fill="#a78bfa" font-family="monospace" opacity=".6">AES-128 / RSA-2048</text>
+          </svg>
+
+          <h2 id="matematica-title">🔢 La matemática detrás de la seguridad digital</h2>
+          <p>La seguridad digital no es solo tecnología: está construida sobre fundamentos matemáticos sólidos que hacen posible que millones de personas intercambien información de forma segura cada día. Entender estos principios ayuda a comprender por qué ciertos sistemas son seguros y otros no.</p>
+
+          <div class="grid cols-2" style="margin-top:16px;">
+            <div class="card fade-up fade-up-delay-1" style="padding:16px;">
+              <h3>🔑 Criptografía asimétrica (RSA)</h3>
+              <p class="muted">El algoritmo RSA se basa en la dificultad de factorizar números primos enormes. Se utilizan dos claves: una <strong>pública</strong> para cifrar y una <strong>privada</strong> para descifrar. Es la base de HTTPS, correo seguro y firmas digitales.</p>
+              <code style="display:block;background:#0b1220;padding:10px;border-radius:8px;font-size:.8rem;color:#10b981;border:1px solid rgba(16,185,129,.2);margin-top:8px;">C = M<sup style="font-size:.65rem">e</sup> mod n &nbsp;·&nbsp; M = C<sup style="font-size:.65rem">d</sup> mod n</code>
+            </div>
+            <div class="card fade-up fade-up-delay-2" style="padding:16px;">
+              <h3>🔗 Funciones hash (SHA-256)</h3>
+              <p class="muted">Las funciones hash convierten cualquier dato en una cadena de longitud fija. Son <strong>irreversibles</strong>: imposible recuperar el original desde el hash. Se usan para verificar integridad de archivos, contraseñas y blockchain.</p>
+              <code style="display:block;background:#0b1220;padding:10px;border-radius:8px;font-size:.8rem;color:#0ea5e9;border:1px solid rgba(14,165,233,.2);margin-top:8px;">SHA-256("hola") → a6d8f29e…3c1b</code>
+            </div>
+            <div class="card fade-up fade-up-delay-3" style="padding:16px;">
+              <h3>🔄 Criptografía simétrica (AES)</h3>
+              <p class="muted">AES cifra y descifra con la <strong>misma clave secreta</strong>. Es extremadamente rápido y se usa para cifrar discos, archivos y comunicaciones internas. Con AES-256, romperlo por fuerza bruta tomaría más tiempo que la edad del universo.</p>
+              <code style="display:block;background:#0b1220;padding:10px;border-radius:8px;font-size:.8rem;color:#f59e0b;border:1px solid rgba(245,158,11,.2);margin-top:8px;">2<sup style="font-size:.65rem">256</sup> combinaciones posibles</code>
+            </div>
+            <div class="card fade-up fade-up-delay-4" style="padding:16px;">
+              <h3>📡 Protocolo HTTPS y TLS</h3>
+              <p class="muted">Cuando ves el candado 🔒 en el navegador, una combinación de criptografía asimétrica (para el intercambio de claves) y simétrica (para la transmisión) protege tus datos. El <strong>certificado digital</strong> verifica la identidad del servidor usando matemáticas de curva elíptica.</p>
+              <code style="display:block;background:#0b1220;padding:10px;border-radius:8px;font-size:.8rem;color:#a78bfa;border:1px solid rgba(167,139,250,.2);margin-top:8px;">TLS 1.3 + ECDHE + AES-GCM</code>
+            </div>
+          </div>
+
+          <div style="margin-top:22px; padding:18px; background:rgba(14,165,233,.06); border-radius:12px; border:1px solid rgba(14,165,233,.18);">
+            <h3 style="margin:0 0 8px; color:#7dd3fc;">💡 ¿Por qué importa esto para los jóvenes?</h3>
+            <p style="margin:0; color:var(--muted);">Comprender la base matemática de la seguridad digital permite entender <strong style="color:var(--text);">por qué no se deben reutilizar contraseñas</strong> (las funciones hash exponen el patrón), <strong style="color:var(--text);">por qué HTTPS no garantiza que un sitio sea honesto</strong> (solo cifra, no autentica la intención) y <strong style="color:var(--text);">cómo la longitud de clave afecta la seguridad real</strong>. La matemática es la herramienta más poderosa de la privacidad.</p>
+          </div>
+
+          <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a class="btn" target="_blank" rel="noopener noreferrer" href="https://www.khanacademy.org/computing/computer-science/cryptography">
+              📘 Aprender criptografía (Khan Academy) ↗
+            </a>
+            <a class="btn secondary" href="#historia">
+              ← Ver línea de tiempo
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- RECURSOS -->
+      <section id="recursos" class="grid" aria-labelledby="recursos-title" style="display:none;">
+        <div class="card fade-up" style="grid-column: 1 / -1;">
+          <h2 id="recursos-title">📎 Recursos y enlace recomendado</h2>
+          <p>Consulta el siguiente recurso externo para profundizar en la historia y el marco normativo de la seguridad informática:</p>
+          <p>
+            <a class="ext" target="_blank" rel="noopener noreferrer" href="https://www.osi.es/es/actualidad/blog/2013/02/07/historia-de-la-seguridad-informatica">
+              Historia de la Seguridad Informática — OSI (Oficina de Seguridad del Internauta) ↗
+            </a>
+          </p>
+          <p>Otros recursos clave para educadores, jóvenes y familias:</p>
+          <ul>
+            <li><a class="ext" target="_blank" rel="noopener noreferrer" href="https://www.unicef.org/es/tecnologia-y-medios-digitales">UNICEF — Tecnología y medios digitales ↗</a></li>
+            <li><a class="ext" target="_blank" rel="noopener noreferrer" href="https://www.internetmatters.org/es/">Internet Matters — Seguridad en línea para familias ↗</a></li>
+            <li><a class="ext" target="_blank" rel="noopener noreferrer" href="https://beinternetawesome.withgoogle.com/es_es/">Google — Be Internet Awesome (programa educativo) ↗</a></li>
+          </ul>
+          <p class="muted" style="font-size:.85rem;">Esta página no está afiliada a ninguno de los sitios enlazados. Los enlaces conducen a fuentes externas de referencia.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="grid" aria-labelledby="faq-title" style="display:none;">
+        <div class="card fade-up" style="grid-column: 1 / -1;">
+          <h2 id="faq-title">❓ Preguntas frecuentes</h2>
+
+          <div class="faq-item" aria-expanded="false">
+            <button class="faq-q" aria-expanded="false">
+              ¿Cuándo se empezó a hablar de ciberseguridad para jóvenes?
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div class="faq-a">Los primeros programas formales de seguridad digital para menores surgieron a mediados de los años 90, coincidiendo con la masificación de internet en hogares. Organizaciones como i-SAFE (EE. UU.) y más tarde Internet Matters (UK) pionerearon la educación en este campo, mucho antes de que existieran las redes sociales tal como las conocemos hoy.</div>
+          </div>
+
+          <div class="faq-item" aria-expanded="false">
+            <button class="faq-q" aria-expanded="false">
+              ¿Qué diferencia hay entre seguridad informática y seguridad digital?
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div class="faq-a">La seguridad informática se refiere a la protección técnica de sistemas y datos (antivirus, cortafuegos, cifrado). La seguridad digital es un concepto más amplio que incluye la dimensión humana y social: comportamientos en línea, privacidad, bienestar emocional y ciudadanía responsable. Para la educación de jóvenes, el enfoque integral de seguridad digital es el más relevante.</div>
+          </div>
+
+          <div class="faq-item" aria-expanded="false">
+            <button class="faq-q" aria-expanded="false">
+              ¿Qué riesgos enfrentan los jóvenes hoy en internet?
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div class="faq-a">Los principales riesgos actuales incluyen: ciberacoso, grooming (captación por adultos), phishing, robo de identidad, exposición a desinformación y deepfakes, adicción digital, y la explotación de datos personales por plataformas. La formación en conciencia crítica es la mejor herramienta de prevención.</div>
+          </div>
+
+          <div class="faq-item" aria-expanded="false">
+            <button class="faq-q" aria-expanded="false">
+              ¿Cómo enseñar seguridad digital en el aula?
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div class="faq-a">Las mejores prácticas incluyen: aprendizaje basado en casos reales, debate sobre dilemas éticos digitales, proyectos de verificación de fuentes, simulacros de phishing, y creación de contenido responsable. Integrar estas actividades en distintas asignaturas (Lengua, Ciencias, Ética) amplifica el impacto educativo.</div>
+          </div>
+
+          <div class="faq-item" aria-expanded="false">
+            <button class="faq-q" aria-expanded="false">
+              ¿Qué papel tienen las familias en la seguridad digital?
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div class="faq-a">Las familias son el primer entorno de aprendizaje digital. Establecer acuerdos de uso responsable, hablar abiertamente sobre riesgos sin generar pánico, y modelar buenos hábitos digitales son claves. La supervisión activa (no invasiva) y el diálogo constante son más efectivos que el control total o la prohibición.</div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>© <span id="year"></span> Seguridad Digital para Jóvenes. Contenido educativo elaborado para el fortalecimiento de la conciencia crítica.</p>
+      <p class="muted">Parte del proyecto interdisciplinario de educación digital. Tipografía: Inter. Imágenes: Unsplash.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Desplazamiento suave
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id.length > 1) {
+          e.preventDefault();
+          const el = document.querySelector(id);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // FAQ toggle
+    document.querySelectorAll('.faq-item').forEach((item, idx) => {
+      const btn = item.querySelector('.faq-q');
+      const ans = item.querySelector('.faq-a');
+      const aid = ans.id || `faq-a-${idx}`;
+      ans.id = aid; btn.setAttribute('aria-controls', aid);
+      btn.addEventListener('click', () => {
+        const expanded = item.getAttribute('aria-expanded') === 'true';
+        item.setAttribute('aria-expanded', String(!expanded));
+        btn.setAttribute('aria-expanded', String(!expanded));
+      });
+    });
+
+    // Auth modal
+    const authModal = document.getElementById('auth-modal');
+    const authForm = document.getElementById('auth-form');
+    const authEmail = document.getElementById('auth-email');
+    const authError = document.getElementById('auth-error');
+    const authSkip = document.getElementById('auth-skip');
+
+    function showAuth(){ if(authModal){ authModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; setTimeout(() => authEmail?.focus(), 50); } }
+    function hideAuth(){ if(authModal){ authModal.style.display = 'none'; document.body.style.overflow = ''; } }
+
+    const SESSION_KEY = 'sd_session';
+    const hasSession = localStorage.getItem(SESSION_KEY);
+    if (!hasSession) { showAuth(); }
+
+    function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+    authForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = (authEmail?.value || '').trim();
+      if (!validEmail(v)) { if(authError) authError.textContent = 'Ingresa un correo válido.'; return; }
+      localStorage.setItem(SESSION_KEY, JSON.stringify({ email: v, ts: Date.now() }));
+      hideAuth();
+    });
+
+    authSkip?.addEventListener('click', () => {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({ guest: true, ts: Date.now() }));
+      hideAuth();
+    });
+
+    // ===== ROBOT TIPS =====
+    let tipIdx = 0;
+    const tipEl = document.getElementById('robot-tip-text');
+    if(tipEl){
+      setInterval(() => {
+        tipIdx = (tipIdx + 1) % currentTips.length;
+        tipEl.parentElement.style.opacity = '0';
+        setTimeout(() => {
+          tipEl.innerHTML = currentTips[tipIdx];
+          tipEl.parentElement.style.opacity = '1';
+        }, 400);
+      }, 3500);
+    }
+
+    // ===== ROBOT CLICK INTERACTION =====
+    const robotSvg = document.querySelector('.robot-svg');
+    if(robotSvg){
+      robotSvg.addEventListener('click', () => {
+        robotSvg.style.animation = 'none';
+        robotSvg.style.transform = 'scale(1.1) rotate(5deg)';
+        setTimeout(() => {
+          robotSvg.style.transform = '';
+          robotSvg.style.animation = 'robot-float 3s ease-in-out infinite';
+        }, 300);
+        // cambiar tip al hacer click
+        tipIdx = (tipIdx + 1) % currentTips.length;
+        if(tipEl){
+          tipEl.parentElement.style.opacity = '0';
+          setTimeout(() => {
+            tipEl.innerHTML = currentTips[tipIdx];
+            tipEl.parentElement.style.opacity = '1';
+          }, 250);
+        }
+      });
+    }
+
+    // ===== PROGRESS BARS =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          document.querySelectorAll('.prog-bar-fill').forEach(bar => {
+            const w = bar.dataset.width;
+            bar.style.width = w + '%';
+          });
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    const pw = document.querySelector('.progress-widget');
+    if(pw) observer.observe(pw);
+
+    // ===== FADE-UP ANIMATION ON SCROLL =====
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => {
+      fadeObserver.observe(el);
+    });
+
+    // ===== BG FLOATING PARTICLES =====
+    (function createBgParticles(){
+      const container = document.getElementById('bg-particles');
+      if(!container) return;
+      const colors = ['#0ea5e9', '#10b981', '#0ea5e9', '#10b981', '#38bdf8'];
+      for(let i = 0; i < 18; i++){
+        const p = document.createElement('div');
+        p.className = 'bg-particle';
+        const size = Math.random() * 4 + 2;
+        const left = Math.random() * 100;
+        const dur = Math.random() * 12 + 10;
+        const delay = Math.random() * 12;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        p.style.cssText = `
+          width:${size}px; height:${size}px;
+          left:${left}%;
+          background:${color};
+          animation-duration:${dur}s;
+          animation-delay:${delay}s;
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    // ===== TOPBAR SCROLL EFFECT =====
+    const topbar = document.querySelector('.topbar');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 60){
+        topbar.style.background = 'rgba(15,23,42,.92)';
+      } else {
+        topbar.style.background = 'rgba(15,23,42,.7)';
+      }
+    }, { passive: true });
+    // ===== MENÚ 3 PUNTITOS =====
+    const dotsBtn = document.getElementById('dots-btn');
+    const dotsDropdown = document.getElementById('dots-dropdown');
+    const dotsWrapper = document.getElementById('dots-wrapper');
+
+    dotsBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dotsDropdown.classList.toggle('show');
+      dotsBtn.classList.toggle('open', isOpen);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!dotsWrapper?.contains(e.target)) {
+        dotsDropdown?.classList.remove('show');
+        dotsBtn?.classList.remove('open');
+      }
+    });
+
+    function closeMenu(){
+      dotsDropdown?.classList.remove('show');
+      dotsBtn?.classList.remove('open');
+    }
+
+    // ===== DATOS DE MATERIAS =====
+    const materiasData = {
+      matematicas: {
+        icon: '📐',
+        nombre: 'Matemáticas',
+        relacionada: true,
+        aporte: 'La matemática desempeña un papel fundamental en el análisis cuantitativo de los riesgos digitales y en la comprensión estadística de los fenómenos relacionados con la ciberseguridad. Gracias a herramientas matemáticas como la probabilidad, la estadística y el álgebra, es posible identificar patrones, medir vulnerabilidades y predecir posibles amenazas en sistemas informáticos. Esto permite a las organizaciones tomar decisiones basadas en datos y reducir significativamente los riesgos asociados al uso de la tecnología.Además, la matemática es el lenguaje esencial detrás del cifrado y la criptografía, que son pilares clave para proteger la información en la era digital. Mediante algoritmos complejos, se garantiza la confidencialidad, integridad y autenticidad de los datos, evitando accesos no autorizados y ataques cibernéticos. Técnicas como el uso de claves públicas y privadas, funciones hash y sistemas de encriptación dependen directamente de conceptos matemáticos avanzados.Por otro lado, la aplicación de modelos matemáticos permite simular escenarios de ataque, evaluar sistemas de defensa y optimizar protocolos de seguridad. En un mundo cada vez más conectado, donde circula una gran cantidad de información sensible, la matemática se convierte en una herramienta indispensable para el desarrollo de sistemas seguros, confiables y eficientes.',
+        temas: [
+          'Estadísticas de ciberdelitos: análisis de datos reales a nivel nacional e internacional',
+          'Probabilidad aplicada a riesgos en línea: ¿qué tan probable es ser víctima de phishing o fraude?',
+          'Gráficas e interpretación de datos sobre uso de internet en jóvenes ecuatorianos',
+          'Cálculo de contraseñas seguras: combinaciones posibles según longitud y caracteres usados',
+          'Porcentajes de incidencia del ciberacoso por grupo etario y plataforma',
+          'Criptografía básica: álgebra modular y cifrado César como introducción al cifrado matemático',
+          'Análisis de encuestas sobre hábitos digitales: media, moda, desviación estándar',
+          'Modelos matemáticos de propagación de virus informáticos (similares a modelos epidemiológicos)',
+          'Relación entre entropía de una contraseña y su nivel de seguridad',
+        ]
+      },
+      programacion: {
+        icon: '💻',
+        nombre: 'Programación',
+        relacionada: true,
+        aporte: 'La programación está directamente relacionada con la ciberseguridad, ya que permite comprender cómo funcionan los sistemas digitales desde su base: el código. A través del conocimiento de lenguajes de programación, estructuras de datos y arquitectura de software, es posible identificar cómo se desarrollan las aplicaciones y dónde pueden existir vulnerabilidades. Esto resulta clave para anticipar, detectar y prevenir fallos que podrían ser explotados por atacantes.Además, la programación no solo sirve para construir sistemas, sino también para analizar cómo ocurren los ataques informáticos. Un programador con conocimientos en seguridad puede entender técnicas como la inyección de código, el desbordamiento de búfer o los ataques de tipo XSS (Cross-Site Scripting), lo que le permite diseñar aplicaciones más robustas y resistentes. En este sentido, aprender a programar implica también aprender a pensar como un posible atacante, pero con el objetivo de fortalecer la defensa.Por otro lado, la protección de los sistemas se implementa directamente desde el código. Buenas prácticas como la validación de datos, el uso de autenticación segura, la encriptación de información sensible y la correcta gestión de sesiones son esenciales para evitar accesos no autorizados. Un programador que desconoce estos principios puede, sin darse cuenta, construir sistemas vulnerables que pongan en riesgo la información y la privacidad de los usuarios.En un entorno digital cada vez más complejo, la programación segura se convierte en una habilidad indispensable. No se trata solo de que el software funcione, sino de que sea confiable, seguro y capaz de resistir amenazas. Por ello, integrar la ciberseguridad en el proceso de desarrollo desde el inicio es fundamental para garantizar la protección de los sistemas y de la información..',
+        temas: [
+          'Cómo funcionan los virus, malware, ransomware y spyware a nivel de código',
+          'Buenas prácticas de código seguro: validación de entradas y manejo de errores',
+          'Cifrado básico y hashing de contraseñas (MD5, SHA-256, bcrypt)',
+          'Proyectos de sensibilización digital: apps interactivas, formularios seguros, quizzes',
+          'Ética en el desarrollo de software y responsabilidad por la privacidad de usuarios',
+          'Inyección SQL: qué es, cómo se produce y cómo prevenirla con código limpio',
+          'Autenticación segura: tokens, sesiones y autenticación de dos factores (2FA)',
+          'Análisis de código malicioso: comprensión de scripts de phishing y shellcode básico',
+          'Desarrollo de un proyecto: página web de concientización sobre seguridad digital',
+          'Uso de librerías criptográficas en Python/JavaScript para proteger datos',
+        ]
+      },
+      emprendimiento: {
+        icon: '📊',
+        nombre: 'Emprendimiento y Gestión',
+        relacionada: true,
+        aporte: 'El entorno digital se ha convertido en el principal canal de negocios de la era moderna, y con ello, la seguridad digital ha dejado de ser una opción para convertirse en una necesidad estratégica para cualquier emprendimiento. Un negocio que no protege los datos de sus clientes no solo arriesga su reputación, sino que puede enfrentar sanciones legales, pérdidas económicas irreversibles y la quiebra total. En Ecuador, la Ley Orgánica de Datos Personales establece obligaciones concretas para las empresas que recopilan información de sus usuarios, lo que hace indispensable que los futuros emprendedores conozcan y cumplan estas normativas desde el inicio.\n\nLa gestión empresarial moderna debe incorporar la ciberseguridad como parte de su planificación estratégica. Un incidente como el robo de datos, un ataque de ransomware o la suplantación del dominio web puede paralizar completamente las operaciones de una pyme. Por eso, desarrollar un plan de continuidad del negocio y contar con copias de seguridad regulares no es solo una buena práctica técnica: es una decisión de gestión empresarial responsable que protege los activos más valiosos de cualquier organización.\n\nAdemás, en la era de las redes sociales y el comercio electrónico, la reputación digital de un negocio se construye y destruye en cuestión de horas. Los emprendedores deben entender cómo gestionar su identidad de marca digital, proteger su contenido original mediante derechos de propiedad intelectual y responder de forma profesional ante crisis generadas por incidentes de seguridad. La seguridad no es solo tecnología: es confianza, y la confianza es el motor del comercio.',
+        temas: [
+          'Protección de datos de clientes en negocios digitales: marco legal en Ecuador',
+          'Riesgos legales y económicos por violaciones de privacidad en empresas',
+          'Estrategias de ciberseguridad accesibles para pymes y startups con bajo presupuesto',
+          'Reputación digital y gestión de crisis en redes sociales ante incidentes de seguridad',
+          'Normativas sobre comercio electrónico y protección del consumidor digital',
+          'Plan de continuidad del negocio ante ciberataques: copias de seguridad y recuperación',
+          'Seguros digitales y riesgos cibernéticos para emprendimientos modernos',
+          'Identidad de marca digital: cómo proteger el nombre, logo y contenido del negocio',
+          'Caso de estudio: impacto económico de un ransomware en una pequeña empresa',
+          'Herramientas gratuitas de ciberseguridad para emprendedores: antivirus, VPN, gestores de contraseñas',
+        ]
+      },
+      orientacion: {
+        icon: '🧭',
+        nombre: 'Formación y Orientación Laboral',
+        relacionada: true,
+        aporte: 'En el mercado laboral del siglo XXI, la identidad digital de una persona es tan importante como su currículum físico. Los reclutadores y empleadores investigan activamente a los candidatos en internet antes de tomar decisiones de contratación, y lo que encuentran puede abrir o cerrar puertas profesionales de manera definitiva. Entender qué es la huella digital, cómo se forma y cómo gestionarla de forma responsable es una competencia esencial que todos los jóvenes deben desarrollar antes de ingresar al mundo laboral.\n\nLa formación y orientación laboral tiene la responsabilidad de preparar a los estudiantes no solo para encontrar trabajo, sino para proteger su reputación profesional en línea a lo largo de toda su carrera. Publicaciones inapropiadas en redes sociales, fotos comprometedoras o comentarios impulsivos pueden tener consecuencias que persisten durante años, incluso décadas. Por eso, enseñar a los jóvenes a construir un perfil profesional seguro, auténtico y atractivo en plataformas como LinkedIn es una inversión en su futuro.\n\nAdemás, el trabajo remoto y el teletrabajo han llegado para quedarse, y con ellos vienen nuevos desafíos de seguridad digital: uso de redes domésticas, herramientas de colaboración en la nube, videoconferencias y comunicaciones cifradas. Un trabajador moderno que desconoce las buenas prácticas de ciberseguridad puede convertirse sin saberlo en la puerta de entrada de un ataque a su empresa. La seguridad digital es hoy una competencia transversal que el mercado laboral ya demanda y que las instituciones educativas tienen el deber de enseñar.',
+        temas: [
+          'Huella digital permanente: cómo lo que publicas hoy afecta tu futuro profesional',
+          'Construcción de un perfil profesional seguro y atractivo en LinkedIn',
+          'Derechos digitales del trabajador: privacidad, monitoreo y uso de dispositivos corporativos',
+          'Riesgos del oversharing en redes sociales y su efecto en procesos de selección',
+          'Uso responsable del correo electrónico y comunicaciones profesionales en línea',
+          'Cómo los reclutadores investigan a los candidatos en internet antes de contratar',
+          'Ciberseguridad como competencia profesional demandada: carreras y salidas laborales',
+          'Protección de propiedad intelectual y derechos de autor en el trabajo digital',
+          'Trabajo remoto seguro: buenas prácticas para el teletrabajo y reuniones virtuales',
+          'Gestión de identidad digital: diferencia entre perfil personal y profesional en línea',
+        ]
+      },
+      biologia: {
+        icon: '🧬',
+        nombre: 'Biología',
+        relacionada: false,
+        aporte: 'A primera vista, la biología y la ciberseguridad parecen disciplinas sin conexión. Sin embargo, al observarlas con más detenimiento, se descubren analogías sorprendentes y puntos de contacto muy relevantes. Los virus informáticos, por ejemplo, replican exactamente el comportamiento de los virus biológicos: ingresan a un sistema huésped sin ser detectados, se reproducen utilizando los recursos del sistema y causan daño de formas que muchas veces no se manifiestan de inmediato. Comprender la biología de los virus ayuda a entender la lógica detrás del malware moderno y el diseño de sistemas inmunológicos digitales como los antivirus y los firewalls.\n\nDesde otra perspectiva, el uso intensivo de tecnología tiene impactos biológicos reales y documentados en el cuerpo humano. El síndrome de visión por computadora, los trastornos del sueño causados por la luz azul, las lesiones musculoesqueléticas por malas posturas y los efectos neurológicos de la sobreestimulación digital son consecuencias físicas directas del mundo hiperconectado en el que vivimos. La biología nos ofrece el marco científico para entender estos impactos y para diseñar hábitos digitales más saludables y sostenibles.\n\nFinalmente, la biometría —el uso de características físicas únicas como huellas dactilares, iris o reconocimiento facial para autenticar identidades— está en el cruce exacto entre biología y ciberseguridad. Los datos biológicos son los más personales que existen y, al mismo tiempo, los más codiciados por actores malintencionados. Entender qué son, cómo funcionan y por qué merecen una protección especial es una competencia que la biología puede aportar de forma única a la educación digital.',
+        temas: [
+          'Analogía entre virus biológicos y virus informáticos: mecanismos de infección, replicación y daño',
+          'Impacto del tiempo excesivo en pantallas en la salud visual: síndrome de visión por computadora',
+          'Efectos neurológicos del uso de redes sociales: dopamina, adicción digital y bienestar mental',
+          'Ergonomía y postura corporal en el uso prolongado de dispositivos electrónicos',
+          'Trastornos del sueño asociados al uso nocturno de pantallas y luz azul',
+          'Biometría en la seguridad digital: huella dactilar, reconocimiento facial e iris como datos biológicos',
+          'Privacidad de datos biológicos: ¿qué hacen las apps de salud con tu información?',
+          'Contaminación electrónica (e-waste): impacto ambiental y biológico de los dispositivos desechados',
+        ]
+      },
+      soporte: {
+        icon: '🔧',
+        nombre: 'Soporte Técnico',
+        relacionada: true,
+        aporte: 'El soporte técnico es la materia más directamente vinculada a la práctica diaria de la ciberseguridad. El técnico de soporte es, en muchos entornos, la primera línea de defensa ante incidentes de seguridad: es quien recibe el llamado cuando un equipo se comporta de forma extraña, cuando un usuario cae en un phishing o cuando una red empresarial presenta anomalías. Su capacidad para diagnosticar, contener y remediar amenazas en tiempo real puede marcar la diferencia entre un incidente menor y una brecha catastrófica.\n\nLa formación en soporte técnico debe ir mucho más allá de la instalación de software o la reparación de hardware. Implica conocer a fondo la arquitectura de los sistemas operativos, la configuración segura de redes, los protocolos de autenticación y las herramientas de monitoreo y detección de intrusiones. Un técnico que sabe configurar correctamente un firewall, aplicar parches de seguridad de forma oportuna y establecer políticas de contraseñas robustas está contribuyendo activamente a la protección de toda la organización.\n\nAdemás, la documentación es una parte esencial del trabajo técnico en seguridad. Registrar los incidentes, las acciones tomadas y las lecciones aprendidas permite construir una base de conocimiento institucional que mejora la respuesta ante futuros ataques. En un mundo donde las amenazas evolucionan constantemente, el técnico de soporte moderno debe ser también un profesional de la seguridad: curioso, actualizado, metódico y comprometido con la protección de la información de los usuarios que dependen de su expertise.',
+        temas: [
+          'Configuración segura de redes Wi-Fi domésticas y empresariales: WPA3, SSID oculto, firewall',
+          'Identificación, análisis y eliminación de malware en equipos Windows, Linux y macOS',
+          'Gestión de actualizaciones de seguridad y aplicación de parches críticos del sistema',
+          'Respaldo de datos (backup 3-2-1) y planes de recuperación ante desastres digitales',
+          'Protocolos de atención ante ataques o vulnerabilidades detectadas en tiempo real',
+          'Configuración de antivirus corporativo y herramientas EDR (Endpoint Detection & Response)',
+          'Análisis de tráfico de red con Wireshark: detección de anomalías y actividad sospechosa',
+          'Creación de cuentas con principio de mínimo privilegio y control de acceso',
+          'Cifrado de discos duros: BitLocker, VeraCrypt y protección de datos en reposo',
+          'Elaboración de informes técnicos de incidentes de seguridad: documentación y trazabilidad',
+        ]
+      },
+      disenoweb: {
+        icon: '🌐',
+        nombre: 'Diseño Web',
+        relacionada: true,
+        aporte: 'Los diseñadores y desarrolladores web son los arquitectos del espacio digital donde millones de personas interactúan, compran, aprenden y se comunican cada día. Esta responsabilidad implica que la seguridad no puede ser un añadido posterior al proceso de diseño: debe ser parte constitutiva de cada decisión, desde la estructura de un formulario hasta la política de cookies de un sitio. Un diseñador web que ignora los principios de seguridad puede, sin intención, crear entornos que expongan a los usuarios a riesgos reales.\n\nEl diseño web tiene una relación directa con algunos de los ataques más comunes en la actualidad. El Cross-Site Scripting (XSS), la falsificación de solicitudes entre sitios (CSRF) o el uso de HTTP en lugar de HTTPS son vulnerabilidades que se originan en decisiones de diseño y desarrollo deficientes. Conocerlas y prevenirlas es parte del oficio: no se puede diseñar una experiencia de usuario digna sin garantizar que esa experiencia sea también segura y que la privacidad de quien la usa esté protegida.\n\nAdemás, el diseño web tiene una dimensión ética que se expresa en conceptos como los "dark patterns": patrones de diseño manipuladores que engañan a los usuarios para que acepten condiciones que no desean, compartan más datos de los necesarios o se suscriban a servicios sin darse cuenta. Enseñar a los estudiantes a identificar y rechazar estas prácticas, y a construir interfaces honestas, accesibles y centradas en el bienestar del usuario, es una contribución fundamental a una cultura digital más justa y segura para todos.',
+        temas: [
+          'Diseño de formularios seguros: HTTPS, validación de entradas y protección CSRF',
+          'Accesibilidad y privacidad en el diseño UX/UI: consentimiento informado y dark patterns',
+          'Protección contra XSS (Cross-Site Scripting): inyección de scripts maliciosos en sitios web',
+          'Políticas de privacidad, aviso legal y gestión de cookies conforme al RGPD',
+          'Creación de páginas web de concientización sobre seguridad digital para jóvenes',
+          'SEO ético vs. Black Hat SEO: técnicas de engaño y suplantación de identidad en buscadores',
+          'Seguridad en CMS (WordPress, Wix): actualizaciones, plugins seguros y permisos de archivos',
+          'Diseño de interfaces que generan confianza: certificados SSL, sellos de seguridad y UX honesto',
+          'Protección de imágenes, código y contenido original contra plagio y robo digital',
+          'Auditoría básica de seguridad web con herramientas como OWASP ZAP o Google Lighthouse',
+        ]
+      },
+      lengua: {
+        icon: '📖',
+        nombre: 'Lengua y Literatura',
+        relacionada: true,
+        aporte: 'En la era de la información, la capacidad de leer críticamente, analizar el discurso y comunicarse de forma responsable son habilidades tan vitales para la seguridad digital como cualquier conocimiento técnico. La desinformación, las noticias falsas y la manipulación a través del lenguaje son amenazas que se enfrentan con pensamiento crítico y competencia lectora, no con antivirus. Lengua y Literatura forma ciudadanos capaces de distinguir entre una fuente confiable y una noticia fabricada, entre un argumento legítimo y una táctica de persuasión manipuladora.\n\nLa ingeniería social —uno de los métodos de ataque más efectivos en ciberseguridad— se basa casi exclusivamente en el uso del lenguaje para engañar. Los correos de phishing, los mensajes de estafa y los llamados de suplantación de identidad explotan la confianza humana mediante palabras cuidadosamente elegidas, urgencia artificial y apelaciones emocionales. Un estudiante que ha aprendido a analizar el discurso persuasivo, a identificar falacias argumentativas y a detectar incongruencias lingüísticas está mucho mejor preparado para no caer en estas trampas.\n\nPor otro lado, la producción de textos responsables y éticos en entornos digitales es otra competencia que esta materia desarrolla de forma única. Saber escribir con claridad, verificar información antes de compartirla, respetar los derechos de autor y comunicarse con netiqueta en espacios digitales son habilidades que Lengua y Literatura cultiva directamente. En un mundo donde una sola publicación puede tener consecuencias legales, sociales y profesionales, la educación lingüística se convierte en una herramienta indispensable para la ciudadanía digital.',
+        temas: [
+          'Identificación de fake news: análisis del lenguaje persuasivo, fuentes y titulares clickbait',
+          'Análisis crítico de discursos de odio, acoso y violencia en redes sociales',
+          'Netiqueta y escritura responsable: cómo comunicarse de forma ética y respetuosa en línea',
+          'Comprensión lectora aplicada a términos y condiciones de plataformas digitales',
+          'Ensayos argumentativos sobre privacidad, libertad de expresión y derechos digitales',
+          'Literatura y tecnología: distopías digitales en obras como "1984", "El Cuento de la Criada" o "Black Mirror"',
+          'Ingeniería social y manipulación del lenguaje: cómo los atacantes usan palabras para engañar',
+          'Análisis de correos de phishing: estructura, errores ortográficos y señales de alerta lingüísticas',
+          'Producción de textos informativos y campañas de concientización sobre ciberseguridad',
+          'El lenguaje del anonimato digital: foros, deepweb y jerga cibercriminal en el discurso actual',
+        ]
+      },
+      historia: {
+        icon: '📜',
+        nombre: 'Historia',
+        relacionada: true,
+        aporte: 'La historia de la seguridad digital es, en esencia, la historia de la humanidad enfrentando las consecuencias no anticipadas de sus propias creaciones tecnológicas. Desde los primeros virus informáticos de los años 80, creados casi como experimentos académicos, hasta los sofisticados ataques de Estado del siglo XXI, el arco histórico de la ciberseguridad revela cómo las decisiones del pasado —sobre arquitecturas de red, estándares de privacidad y regulaciones digitales— definen los problemas que enfrentamos hoy. Comprender esta historia no es solo un ejercicio académico: es indispensable para no repetir los errores que ya costaron millones de víctimas y miles de millones de dólares.\n\nLos grandes hitos de la vigilancia digital, como las revelaciones de Edward Snowden en 2013 o el escándalo de Cambridge Analytica en 2018, muestran que la seguridad digital no es solo un problema técnico: es un problema político, social y de derechos humanos. Estos eventos transformaron el debate global sobre privacidad, democracia y el poder de las corporaciones tecnológicas, dando origen a regulaciones como el RGPD europeo y, en Ecuador, la Ley Orgánica de Datos Personales. La historia explica por qué estas leyes existen y qué futuro queremos construir con ellas.\n\nAdemás, estudiar la evolución histórica de la ciberseguridad permite desarrollar en los estudiantes una conciencia sobre el tiempo largo: los efectos de las decisiones digitales no son siempre inmediatos. Una brecha de datos puede tardar meses en descubrirse; una normativa puede tardar años en implementarse. Historia enseña a pensar en consecuencias, en causas profundas y en la responsabilidad colectiva de construir un entorno digital más justo, seguro y libre para las generaciones que vienen.',
+        temas: [
+          'Historia de internet: de ARPANET (1969) a la World Wide Web y la era de las redes sociales',
+          'Primeros virus informáticos (años 80-90): Morris Worm, Melissa, ILOVEYOU y su impacto social',
+          'Hitos de vigilancia y privacidad: WikiLeaks, Edward Snowden y las revelaciones de la NSA',
+          'El escándalo Cambridge Analytica: manipulación política y datos personales en democracias',
+          'Evolución de las leyes de ciberseguridad a nivel mundial y en Ecuador (Ley Orgánica de Datos)',
+          'El surgimiento del ciberactivismo: Anonymous, hacktivismo y derechos digitales como movimiento social',
+          'Ciberguerra y espionaje estatal: casos de Stuxnet, ataques a infraestructura crítica y geopolítica digital',
+          'Historia del ciberacoso y su respuesta legislativa: de los primeros foros a TikTok',
+          'La evolución de la privacidad: de las cartas selladas al cifrado end-to-end moderno',
+          'Cronología de grandes brechas de datos: Yahoo, Equifax, Facebook y sus consecuencias globales',
+        ]
+      },
+      sistemas: {
+        icon: '🖥️',
+        nombre: 'Sistemas Operativos',
+        relacionada: true,
+        aporte: 'El sistema operativo es el corazón de cualquier dispositivo digital: es la capa de software que gestiona los recursos del hardware y sobre la cual se ejecutan todas las aplicaciones, incluidas las de seguridad y las maliciosas. Sin un entendimiento sólido de cómo funcionan los sistemas operativos —sus permisos, sus procesos, sus servicios en segundo plano y su arquitectura de seguridad— es imposible comprender en profundidad cómo ocurren los ataques ni cómo defenderse de ellos de forma efectiva. Esta materia proporciona los cimientos técnicos sobre los que se construye todo el conocimiento en ciberseguridad.\n\nLos vectores de ataque más comunes explotan directamente las vulnerabilidades del sistema operativo: escalada de privilegios, exploits de kernel, backdoors en servicios innecesarios o configuraciones por defecto inseguras. Un administrador o técnico que conoce a fondo su sistema operativo puede aplicar el principio de "hardening" —endurecer el sistema eliminando lo superfluo y configurando correctamente lo esencial— reduciendo drásticamente la superficie de ataque disponible para un adversario. Este conocimiento es tan valioso en entornos domésticos como en infraestructuras críticas empresariales.\n\nAdemás, los sistemas operativos modernos incluyen herramientas poderosas de auditoría, registro de eventos y análisis forense que permiten investigar lo que ha ocurrido en un sistema comprometido. Saber leer un log, interpretar alertas del firewall del sistema o analizar procesos activos en busca de comportamientos anómalos son habilidades que nacen del conocimiento profundo del sistema operativo. En un contexto donde los ataques avanzados pueden permanecer latentes durante semanas, estas capacidades de detección y respuesta son absolutamente críticas.',
+        temas: [
+          'Gestión de permisos, grupos y usuarios en sistemas operativos: principio de mínimo privilegio',
+          'Configuración de seguridad avanzada en Windows 11, Ubuntu Linux y macOS',
+          'Vulnerabilidades del sistema: exploits, CVE y cómo se clasifican y parchean',
+          'Logs, journaling y auditoría de actividad del sistema para detectar intrusiones',
+          'Instalación segura de software: fuentes confiables, firmas digitales y repositorios oficiales',
+          'Virtualización y sandboxing: ejecutar software sospechoso en entornos aislados',
+          'Configuración del firewall del sistema operativo: reglas de entrada y salida',
+          'Hardening de sistemas: deshabilitar servicios innecesarios y reducir la superficie de ataque',
+          'Análisis forense básico: cómo investigar un equipo comprometido sin destruir evidencia',
+          'Diferencias de seguridad entre sistemas operativos: mitos y realidades de Windows vs. Linux vs. macOS',
+        ]
+      },
+      ofimatica: {
+        icon: '📁',
+        nombre: 'Aplicaciones Ofimáticas',
+        relacionada: true,
+        aporte: 'Las herramientas ofimáticas son el entorno de trabajo diario de la gran mayoría de personas conectadas: correos electrónicos, hojas de cálculo, presentaciones, documentos compartidos y formularios en línea son el tejido cotidiano de la comunicación digital profesional y personal. Precisamente por su universalidad y por la confianza que generan en los usuarios, estas herramientas se han convertido en uno de los vectores de ataque más utilizados por los ciberdelincuentes modernos. Entender los riesgos específicos de las aplicaciones ofimáticas es entender la amenaza más cercana y cotidiana.\n\nLos ataques basados en documentos maliciosos —macros de Excel o Word que ejecutan código al abrirse, archivos PDF con enlaces ocultos, o presentaciones con exploits embebidos— son responsables de un porcentaje significativo de las infecciones por malware en entornos corporativos. Además, la configuración incorrecta de permisos en plataformas de nube como Google Drive o OneDrive puede exponer información confidencial a personas no autorizadas, muchas veces sin que el propietario del archivo lo sepa. La simplicidad aparente de estas herramientas oculta una complejidad de seguridad que los usuarios deben conocer.\n\nIgualmente importante es el concepto de metadatos: los documentos digitales almacenan información invisible al lector pero accesible técnicamente, como el nombre del autor, las versiones anteriores del documento, las correcciones realizadas e incluso la geolocalización del dispositivo donde se creó. Esta información puede revelar secretos corporativos, exponer a personas en situaciones delicadas o comprometer negociaciones. Enseñar a los estudiantes a gestionar estas herramientas con conciencia de seguridad es prepararlos para el mundo profesional real.',
+        temas: [
+          'Seguridad en Google Drive, OneDrive y Dropbox: configuración de permisos y acceso compartido',
+          'Permisos de compartición de documentos: diferencia entre "ver", "comentar" y "editar"',
+          'Phishing a través de documentos maliciosos: macros en Excel/Word como vector de ataque',
+          'Contraseñas en archivos Office y cifrado de documentos sensibles con AES',
+          'Uso responsable del correo electrónico: gestión de spam, archivos adjuntos y enlaces sospechosos',
+          'Metadatos en documentos: qué información oculta revelan tus archivos (autor, versiones, ubicación)',
+          'Google Forms seguro: cómo recolectar datos sin comprometer la privacidad de los encuestados',
+          'Colaboración en tiempo real: riesgos de acceso simultáneo y control de versiones',
+          'Firma digital de documentos: validez legal y herramientas gratuitas disponibles en Ecuador',
+          'Copias de seguridad automáticas: configuración y verificación de backups en la nube y local',
+        ]
+      },
+      fisica: {
+        icon: '⚛️',
+        nombre: 'Física',
+        relacionada: false,
+        aporte: 'La física es la ciencia que explica los fenómenos naturales sobre los que se construye toda la infraestructura digital del mundo moderno. Las ondas electromagnéticas que transportan señales Wi-Fi, Bluetooth y 5G, la luz que viaja por la fibra óptica a velocidades casi inconcebibles, los semiconductores que procesan billones de instrucciones por segundo: todo esto es física aplicada. Sin comprender estos fundamentos, es difícil entender por qué ciertas vulnerabilidades existen, cómo se propagan las señales y por qué determinadas medidas de seguridad son efectivas y otras no.\n\nDesde la perspectiva de la ciberseguridad, la física explica ataques que a menudo se pasan por alto en la educación digital. El jamming —la interferencia intencional de señales inalámbricas para impedir comunicaciones— es un ataque físico que puede bloquear redes enteras. Los ataques de canal lateral explotan emisiones electromagnéticas, variaciones de temperatura o diferencias de tiempo en el procesamiento para extraer información cifrada sin romper el cifrado directamente. Y los pulsos electromagnéticos (EMP) pueden destruir físicamente infraestructura tecnológica sin necesidad de acceso a la red.\n\nMirando hacia el futuro, la física cuántica está transformando radicalmente el campo de la criptografía. La computación cuántica amenaza con romper los sistemas de cifrado actuales, mientras que la criptografía cuántica, basada en el principio de incertidumbre de Heisenberg, promete sistemas de comunicación teóricamente imposibles de interceptar. Entender estos conceptos no es solo conocimiento de vanguardia: es prepararse para el panorama de ciberseguridad de las próximas décadas, donde los límites entre física y computación serán cada vez más borrosos.',
+        temas: [
+          'Física de las ondas electromagnéticas: fundamento de las redes Wi-Fi, Bluetooth y 5G',
+          'Espectro radioeléctrico y frecuencias: cómo se transmiten los datos de forma inalámbrica',
+          'Interferencias y ataques de jamming: cómo se bloquean señales y por qué es ilegal',
+          'Electricidad y hardware: cómo funciona un circuito integrado y qué protege los datos en un chip',
+          'Física de los semiconductores: transistores, memorias flash y almacenamiento de datos digitales',
+          'Óptica y fibra óptica: transmisión de datos a la velocidad de la luz y su seguridad inherente',
+          'Energía y seguridad: protección contra ataques físicos (cortes de energía, pulsos electromagnéticos EMP)',
+          'Principio de incertidumbre en criptografía cuántica: el futuro de la seguridad digital basado en física',
+        ]
+      },
+      edufisica: {
+        icon: '⚽',
+        nombre: 'Educación Física',
+        relacionada: false,
+        aporte: 'La Educación Física, en su esencia, promueve el bienestar integral del ser humano: salud física, equilibrio mental y hábitos de vida saludables. En una época donde los jóvenes pasan un promedio de siete a diez horas diarias frente a pantallas, esta materia tiene una responsabilidad única: abordar los efectos concretos que el sedentarismo digital tiene sobre el cuerpo y la mente, y proponer alternativas de equilibrio que permitan disfrutar la tecnología sin sacrificar la salud. El uso excesivo de dispositivos no es solo un problema de tiempo: tiene consecuencias físicas documentadas que esta materia puede y debe abordar.\n\nLas lesiones por uso repetitivo —el síndrome del túnel carpiano, la tendinitis del pulgar, el "cuello de texto" y las contracturas cervicales— afectan cada vez a jóvenes más pequeños y son directamente atribuibles al uso prolongado de smartphones y computadoras en posiciones incorrectas. La Educación Física aporta aquí el conocimiento de ergonomía, biomecánica y ejercicios preventivos que pueden contrarrestar estos efectos. Saber cómo sentar correctamente, hacer pausas activas y realizar ejercicios de compensación son habilidades que todo usuario intensivo de tecnología necesita.\n\nAdemás, los videojuegos en línea y las comunidades virtuales de esports presentan riesgos específicos para los jóvenes que esta materia puede abordar de forma directa: desde la adicción digital y sus señales de alerta físicas y psicológicas, hasta los riesgos de grooming en plataformas de gaming y la privacidad de los datos recopilados por aplicaciones de fitness y wearables deportivos. La Educación Física del siglo XXI no puede ignorar el mundo digital: debe integrarlo críticamente para formar jóvenes más conscientes, saludables y seguros.',
+        temas: [
+          'Sedentarismo digital: consecuencias físicas del uso excesivo de pantallas en jóvenes',
+          'Lesiones por uso repetitivo: síndrome del túnel carpiano, tendinitis y "cuello de texto" (text neck)',
+          'Adicción a videojuegos y redes sociales: señales de alerta físicas y psicológicas',
+          'Deporte electrónico (esports): salud física de los jugadores profesionales y ergonomía',
+          'Privacidad en apps de fitness: ¿qué datos recopilan Strava, Fitbit o Nike Run Club?',
+          'Grooming y seguridad en comunidades de videojuegos en línea: riesgos para jóvenes jugadores',
+          'Uso responsable de wearables deportivos: smartwatches, pulseras y geolocalización',
+          'Bienestar digital: equilibrio entre tiempo en pantalla y actividad física como hábito saludable',
+          'Transmisión de deportes en línea: derechos de imagen, streaming ilegal y ciberpiratería',
+        ]
+      },
+      quimica: {
+        icon: '🧪',
+        nombre: 'Química',
+        relacionada: false,
+        aporte: 'Química y seguridad digital pueden parecer mundos completamente separados, pero al explorar sus principios fundamentales emergen analogías poderosas y conexiones reales que enriquecen la comprensión de ambas disciplinas. La criptografía, por ejemplo, funciona de manera muy similar a las reacciones químicas irreversibles: se puede transformar fácilmente un mensaje legible en un texto cifrado ininteligible, pero revertir ese proceso sin la clave correcta es computacionalmente imposible, exactamente como ciertas reacciones químicas que no pueden deshacerse una vez completadas. Esta analogía conceptual ayuda a los estudiantes a intuir por qué el cifrado moderno es tan robusto.\n\nPero la relación entre química y tecnología no es solo metafórica: es también muy concreta e industrial. La fabricación de chips, microprocesadores, memorias flash y pantallas involucra procesos químicos de alta precisión: deposición de capas nanométricas de materiales conductores y aislantes, grabado fotoquímico de circuitos con resoluciones inferiores al nanómetro, y síntesis de materiales con propiedades eléctricas específicas. Comprender estos procesos permite apreciar la complejidad de la cadena de suministro tecnológica y los riesgos de seguridad que pueden introducirse a nivel de hardware, como los chips espía descubiertos en placas de servidores corporativos.\n\nFinalmente, la química ambiental arroja luz sobre uno de los aspectos más ignorados de la tecnología: su impacto tóxico al final de su vida útil. Los dispositivos electrónicos contienen plomo, mercurio, cadmio, arsénico y otros compuestos altamente tóxicos que, si no se gestionan correctamente, contaminan suelos y acuíferos durante décadas. El e-waste es ya la corriente de residuos de más rápido crecimiento en el mundo, y Ecuador no está exento de este problema. La química nos recuerda que la sostenibilidad digital no es solo una cuestión técnica: es también química, ambiental y profundamente humana.',
+        temas: [
+          'Analogía entre reacciones químicas irreversibles y funciones hash criptográficas (sin vuelta atrás)',
+          'Criptografía como "química de la información": mezclar datos para que sean ilegibles sin la clave',
+          'Fabricación de hardware: procesos químicos en la producción de chips, circuitos y memorias digitales',
+          'Contaminación por e-waste: plomo, mercurio y arsénico en dispositivos electrónicos desechados',
+          'Química de las baterías de litio: funcionamiento, seguridad y riesgos en smartphones y laptops',
+          'Tinta electrónica y pantallas OLED: procesos químicos en los dispositivos que usamos a diario',
+          'Laboratorio virtual y simulación química: uso seguro de software especializado y protección de datos científicos',
+          'Compuestos tóxicos en la fabricación tecnológica: impacto en la salud de trabajadores digitales',
+        ]
+      },
+      civica: {
+        icon: '⚖️',
+        nombre: 'Cívica',
+        relacionada: true,
+        aporte: 'La ciudadanía digital es la extensión natural de la ciudadanía cívica en el siglo XXI. Los mismos derechos que un ciudadano ejerce en el espacio físico —libertad de expresión, privacidad, acceso a la información, participación democrática— tienen su equivalente en el entorno digital, y su defensa requiere el mismo nivel de conocimiento, compromiso y responsabilidad. Educación Cívica tiene la responsabilidad de preparar a los jóvenes para ejercer estos derechos digitales de forma activa e informada, y para reconocer cuándo están siendo vulnerados.\n\nEn Ecuador, el marco legal que regula el entorno digital está en construcción y evolución constante. La Ley Orgánica de Datos Personales, el Código Orgánico Integral Penal y las normativas sobre comercio electrónico establecen derechos y obligaciones concretas para los ciudadanos, las empresas y el Estado. Sin embargo, una ley que los ciudadanos desconocen es una ley que no puede protegerlos. Enseñar a los estudiantes cuáles son sus derechos digitales, cómo exigirlos y a quién acudir cuando son violados es una tarea urgente y esencial de la educación cívica contemporánea.\n\nMás allá del marco legal, la dimensión política de internet merece una atención especial. La desinformación, las campañas de manipulación en redes sociales y el uso de datos personales para influir en procesos electorales son amenazas reales a la democracia que ya han tenido consecuencias documentadas en múltiples países. Cívica puede y debe abordar cómo estos fenómenos erosionan la deliberación pública, por qué la brecha digital reproduce desigualdades sociales y cómo la gobernanza global de internet afecta la soberanía de los estados. Ser ciudadano pleno en el siglo XXI requiere ser también ciudadano digital crítico y activo.',
+        temas: [
+          'Derechos digitales fundamentales: privacidad, libertad de expresión y acceso a la información',
+          'Legislación sobre ciberdelitos en Ecuador: Ley Orgánica de Datos Personales y Código Orgánico Integral Penal',
+          'Ciudadanía digital y participación democrática en línea: peticiones, voto electrónico y transparencia',
+          'El rol del Estado en la protección de datos personales: instituciones, mecanismos y denuncias',
+          'Ética digital y responsabilidad civil en redes sociales: cuándo un comentario es un delito',
+          'Desinformación y democracia: cómo las fake news afectan las elecciones y la opinión pública',
+          'Derechos del consumidor digital: reclamaciones, protección ante fraudes en línea y devoluciones',
+          'Organismos internacionales de gobernanza de internet: ICANN, ONU e Internet Society',
+          'Brechas digitales y desigualdad: el derecho de acceso a internet como derecho humano emergente',
+          'Casos reales de Ecuador: denuncias de ciberacoso, phishing y suplantación de identidad ante autoridades',
+        ]
+      },
+    };
+
+    // ===== IMÁGENES POR MATERIA =====
+    const materiaImgs = {
+      matematicas: [
+        'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=700&q=80&auto=format&fit=crop'
+      ],
+      programacion: [
+        'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=700&q=80&auto=format&fit=crop'
+      ],
+      emprendimiento: [
+        'https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80&auto=format&fit=crop'
+      ],
+      orientacion: [
+        'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80&auto=format&fit=crop'
+      ],
+      biologia: [
+        'https://images.unsplash.com/photo-1530026405186-ed1f139313f3?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=700&q=80&auto=format&fit=crop'
+      ],
+      soporte: [
+        'https://images.unsplash.com/photo-1518770660439-4636190af475?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=700&q=80&auto=format&fit=crop'
+      ],
+      disenoweb: [
+        'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=700&q=80&auto=format&fit=crop'
+      ],
+      lengua: [
+        'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=700&q=80&auto=format&fit=crop'
+      ],
+      historia: [
+        'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=700&q=80&auto=format&fit=crop'
+      ],
+      sistemas: [
+        'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=700&q=80&auto=format&fit=crop'
+      ],
+      ofimatica: [
+        'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=700&q=80&auto=format&fit=crop'
+      ],
+      fisica: [
+        'https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=700&q=80&auto=format&fit=crop'
+      ],
+      edufisica: [
+        'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=700&q=80&auto=format&fit=crop'
+      ],
+      quimica: [
+        'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1554475901-4538ddfbccc2?w=700&q=80&auto=format&fit=crop'
+      ],
+      civica: [
+        'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?w=700&q=80&auto=format&fit=crop'
+      ],
+    };
+
+    // ===== MODAL DE MATERIA — ahora inline =====
+
+    function openMateria(id){
+      openMateriaWithLang(id, currentLang);
+    }
+    function openMateriaWithLang(id, lang){
+      const d = materiasData[id];
+      if(!d) return;
+      const t = translations[lang];
+      const materiaSection = document.getElementById('materia-inline-section');
+      materiaSection.dataset.openMateria = id;
+
+      const imgs = materiaImgs[id] || [
+        'https://images.unsplash.com/photo-1518770660439-4636190af475?w=700&q=80&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=700&q=80&auto=format&fit=crop'
+      ];
+      const heroImg = imgs[0];
+      const secondImg = imgs[1] || imgs[0];
+
+      const relText = t['materia-rel'] || '✅ Relacionada con el proyecto';
+      const norelText = t['materia-norel'] || '⚪ No relacionada directamente';
+      const badge = d.relacionada
+        ? `<span class="materia-tag-rel">${relText}</span>`
+        : `<span class="materia-tag-norel">${norelText}</span>`;
+      const nombreTraducido = (t['materias-names'] && t['materias-names'][id]) ? t['materias-names'][id] : d.nombre;
+
+      const items = d.temas.map((t, i) =>
+        `<li><span class="tema-bullet">${i+1}</span>${t}</li>`
+      ).join('');
+
+      // Crear partículas decorativas
+      let sparks = '';
+      for(let i=0;i<8;i++){
+        sparks += `<span style="left:${10+i*11}%;top:${30+Math.random()*40}%;background:${i%2===0?'#0ea5e9':'#10b981'};animation-delay:${i*0.3}s;animation-duration:${2+i*0.2}s;"></span>`;
+      }
+
+      materiaSection.innerHTML = `
+        <div class="materia-close-strip">
+          <span style="font-size:.78rem;color:var(--muted);font-weight:600;">📚 Materia seleccionada</span>
+          <button class="materia-close-inline-btn" onclick="closeMateria()">✕ Cerrar</button>
+        </div>
+        <div style="position:relative; border-radius: var(--radius); overflow:hidden; box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(14,165,233,.2);">
+          <div class="materia-sparkle">${sparks}</div>
+          <div class="materia-hero-banner">
+            <img src="${heroImg}" alt="${d.nombre}" loading="lazy"/>
+            <div class="materia-hero-overlay">
+              <div class="materia-hero-icon">${d.icon}</div>
+              <h2 class="materia-hero-title">${nombreTraducido}</h2>
+              ${badge}
+            </div>
+          </div>
+          <div class="materia-body-card">
+            <div class="materia-imgs-row">
+              <img src="${heroImg}" alt="${d.nombre} imagen 1" loading="lazy"/>
+              <img src="${secondImg}" alt="${d.nombre} imagen 2" loading="lazy"/>
+            </div>
+            <div class="materia-aporte-box">
+              <p>${d.aporte}</p>
+            </div>
+            <p class="materia-temas-title">${t['materia-temas-titulo'] || '📌 Temas relacionados con seguridad digital'}</p>
+            <ul class="materia-temas-list">${items}</ul>
+          </div>
+        </div>
+      `;
+
+      // Mostrar con animación
+      materiaSection.classList.remove('visible');
+      materiaSection.style.display = 'block';
+      // forzar reflow para reiniciar animación
+      void materiaSection.offsetWidth;
+      materiaSection.classList.add('visible');
+
+      // Scroll suave al panel
+      setTimeout(() => {
+        materiaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    }
+
+    function closeMateria(){
+      const materiaSection = document.getElementById('materia-inline-section');
+      materiaSection.style.display = 'none';
+      materiaSection.classList.remove('visible');
+      materiaSection.innerHTML = '';
+    }
+
+    // ===== CONTADOR ANIMADO =====
+    function animateCounters(){
+      document.querySelectorAll('.counter-val').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        let current = 0;
+        const step = Math.ceil(target / 40);
+        const interval = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = current + suffix;
+          if(current >= target) clearInterval(interval);
+        }, 35);
+      });
+    }
+    const counterObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){ animateCounters(); counterObs.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    const cCards = document.querySelector('.counter-card');
+    if(cCards) counterObs.observe(cCards);
+
+    // ===== BARRAS DE GRÁFICA =====
+    const barObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          document.querySelectorAll('.bar-fill').forEach(bar => {
+            const w = bar.dataset.w;
+            setTimeout(() => { bar.style.width = w + '%'; }, 100);
+          });
+          barObs.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    const bChart = document.getElementById('bar-chart');
+    if(bChart) barObs.observe(bChart);
+
+    // ===== TRADUCCIÓN ES / EN =====
+    const translations = {
+      es: {
+        'brand': 'Seguridad Digital',
+        'badge-hero': 'Proyecto Interdisciplinario · Jóvenes · Ecuador',
+        'titulo-hero': 'Fortalecimiento de la conciencia crítica y la seguridad digital en jóvenes para un uso responsable del internet',
+        'desc-hero': 'Un proyecto educativo que vincula 15 materias del currículo para desarrollar en los jóvenes las competencias digitales necesarias para navegar de forma segura, ética y crítica en el entorno digital del siglo XXI.',
+        'btn-ver': 'Ver el proyecto ↓',
+        'btn-datos': 'Ver estadísticas',
+        'h2-proyecto': 'Sobre el Proyecto',
+        'badge-proyecto': 'Proyecto Interdisciplinario · 2025',
+        'p-proyecto-1': 'Este proyecto nace de la necesidad urgente de preparar a los jóvenes ecuatorianos para los desafíos del mundo digital. En un contexto donde el 94% de los adolescentes está conectado a internet y los ciberataques a menores aumentaron un 38% en 2023, la educación en seguridad digital ya no es opcional: es una competencia ciudadana fundamental.',
+        'p-proyecto-2': 'A través de un enfoque interdisciplinario que vincula 15 materias del currículo escolar, este proyecto busca que los estudiantes no solo aprendan a protegerse en línea, sino que desarrollen el pensamiento crítico necesario para comprender, cuestionar y transformar el entorno digital en el que viven.',
+        'pilar1': 'Seguridad Digital', 'pilar1d': 'Protección frente a amenazas cibernéticas reales',
+        'pilar2': 'Pensamiento Crítico', 'pilar2d': 'Análisis y evaluación del entorno digital',
+        'pilar3': 'Ciudadanía Digital', 'pilar3d': 'Derechos, deberes y ética en internet',
+        'pilar4': 'Uso Responsable', 'pilar4d': 'Hábitos saludables y seguros en la red',
+        'h2-obj': '🎯 Objetivos del Proyecto',
+        'obj1t': 'Fortalecer la conciencia crítica', 'obj1d': 'Desarrollar en los jóvenes la capacidad de analizar, cuestionar y evaluar la información digital de forma autónoma y fundamentada.',
+        'obj2t': 'Promover la seguridad digital', 'obj2d': 'Enseñar prácticas concretas de protección de datos, privacidad y defensa ante amenazas como phishing, ciberacoso y malware.',
+        'obj3t': 'Integrar el currículo', 'obj3d': 'Vincular la seguridad digital con todas las materias del currículo escolar, mostrando su relevancia transversal en cada área del conocimiento.',
+        'obj4t': 'Formar ciudadanos digitales', 'obj4d': 'Preparar a los estudiantes para participar de manera ética, responsable y activa en los entornos digitales de la vida adulta.',
+        'h3-materias': 'Materias vinculadas al proyecto',
+        'p-materias': 'Las siguientes asignaturas aportan directamente al <strong>fortalecimiento de la conciencia crítica y la seguridad digital en jóvenes para un uso responsable del internet</strong>:',
+        'h2-graficas': '📊 Estadísticas del Proyecto',
+        'p-graficas': 'Datos clave sobre seguridad digital y jóvenes en Ecuador y el mundo',
+        'cnt1': 'Adolescentes conectados', 'cnt2': 'Ciberataques a menores (2023)', 'cnt3': 'Materias integradas', 'cnt4': 'Pantalla diaria promedio',
+        'h3-bar': 'Nivel de conciencia digital por área (jóvenes 13-17 años)',
+        'bar1': 'Privacidad en línea', 'bar2': 'Detección de phishing', 'bar3': 'Contraseñas seguras', 'bar4': 'Reporte de ciberacoso', 'bar5': 'Verificación de fuentes', 'bar6': 'Ciudadanía digital',
+        'h3-donut': 'Distribución de materias', 'donut-rel': 'relacionadas',
+        'legend1': '11 materias relacionadas (73%)', 'legend2': '4 materias no relacionadas (27%)',
+        'legend-note': 'El 73% del currículo puede integrarse directamente en la educación sobre seguridad digital y uso responsable del internet.',
+        'h3-timeline': 'Evolución del proyecto en el tiempo',
+        'lang-btn': '🌐 EN',
+        'nav-inicio': 'Inicio', 'nav-proyecto': 'Proyecto', 'nav-datos': 'Datos',
+        'materia-label': '📚 Materia seleccionada',
+        'materia-cerrar': '✕ Cerrar',
+        'materia-rel': '✅ Relacionada con el proyecto',
+        'materia-norel': '⚪ No relacionada directamente',
+        'materia-temas-titulo': '📌 Temas relacionados con seguridad digital',
+        'materias-names': {
+          matematicas:'Matemáticas', programacion:'Programación', emprendimiento:'Emprendimiento y Gestión',
+          orientacion:'Formación y Orientación Laboral', biologia:'Biología', soporte:'Soporte Técnico',
+          disenoweb:'Diseño Web', lengua:'Lengua y Literatura', historia:'Historia',
+          sistemas:'Sistemas Operativos', ofimatica:'Aplicaciones Ofimáticas', fisica:'Física',
+          edufisica:'Educación Física', quimica:'Química', civica:'Cívica'
+        },
+        'dots-legend-rel': 'Relacionada', 'dots-legend-norel': 'No relacionada',
+        'dots-materias-titulo': '📚 Materias del proyecto',
+        'materias-btn': {
+          matematicas:'Matemáticas', programacion:'Programación', emprendimiento:'Emprendimiento',
+          orientacion:'F. Orient. Laboral', biologia:'Biología', soporte:'Soporte Técnico',
+          disenoweb:'Diseño Web', lengua:'Lengua y Lit.', historia:'Historia',
+          sistemas:'Sist. Operativos', ofimatica:'Aplic. Ofimáticas', fisica:'Física',
+          edufisica:'Edu. Física', quimica:'Química', civica:'Cívica'
+        },
+      },
+      en: {
+        'brand': 'Digital Security',
+        'badge-hero': 'Interdisciplinary Project · Youth · Ecuador',
+        'titulo-hero': 'Strengthening Critical Awareness and Digital Security in Young People for Responsible Internet Use',
+        'desc-hero': 'An educational project linking 15 curriculum subjects to develop in young people the digital competencies needed to navigate safely, ethically, and critically in the 21st century digital environment.',
+        'btn-ver': 'See the project ↓',
+        'btn-datos': 'View statistics',
+        'h2-proyecto': 'About the Project',
+        'badge-proyecto': 'Interdisciplinary Project · 2025',
+        'p-proyecto-1': 'This project arises from the urgent need to prepare Ecuadorian youth for the challenges of the digital world. In a context where 94% of teenagers are connected to the internet and cyberattacks on minors increased 38% in 2023, digital security education is no longer optional — it is a fundamental civic competence.',
+        'p-proyecto-2': 'Through an interdisciplinary approach linking 15 school curriculum subjects, this project aims to help students not only learn to protect themselves online, but to develop the critical thinking needed to understand, question, and transform the digital environment in which they live.',
+        'pilar1': 'Digital Security', 'pilar1d': 'Protection against real cyberthreats',
+        'pilar2': 'Critical Thinking', 'pilar2d': 'Analysis and evaluation of the digital environment',
+        'pilar3': 'Digital Citizenship', 'pilar3d': 'Rights, duties and ethics on the internet',
+        'pilar4': 'Responsible Use', 'pilar4d': 'Healthy and safe online habits',
+        'h2-obj': '🎯 Project Objectives',
+        'obj1t': 'Strengthen critical awareness', 'obj1d': 'Develop in young people the ability to analyze, question, and evaluate digital information autonomously and critically.',
+        'obj2t': 'Promote digital security', 'obj2d': 'Teach concrete data protection practices, privacy management, and defense against threats like phishing, cyberbullying, and malware.',
+        'obj3t': 'Integrate the curriculum', 'obj3d': 'Link digital security across all school subjects, showing its cross-cutting relevance in every area of knowledge.',
+        'obj4t': 'Build digital citizens', 'obj4d': 'Prepare students to participate ethically, responsibly, and actively in the digital environments of adult life.',
+        'h3-materias': 'Subjects linked to the project',
+        'p-materias': 'The following subjects contribute directly to the <strong>strengthening of critical awareness and digital security in young people for responsible internet use</strong>:',
+        'h2-graficas': '📊 Project Statistics',
+        'p-graficas': 'Key data on digital security and youth in Ecuador and the world',
+        'cnt1': 'Connected teenagers', 'cnt2': 'Cyberattacks on minors (2023)', 'cnt3': 'Integrated subjects', 'cnt4': 'Average daily screen time',
+        'h3-bar': 'Digital awareness level by area (youth 13–17 years old)',
+        'bar1': 'Online privacy', 'bar2': 'Phishing detection', 'bar3': 'Secure passwords', 'bar4': 'Cyberbullying reporting', 'bar5': 'Source verification', 'bar6': 'Digital citizenship',
+        'h3-donut': 'Subject distribution', 'donut-rel': 'related',
+        'legend1': '11 related subjects (73%)', 'legend2': '4 unrelated subjects (27%)',
+        'legend-note': '73% of the curriculum can be directly integrated into education on digital security and responsible internet use.',
+        'h3-timeline': 'Project timeline',
+        'lang-btn': '🌐 ES',
+        'nav-inicio': 'Home', 'nav-proyecto': 'Project', 'nav-datos': 'Data',
+        'materia-label': '📚 Selected subject',
+        'materia-cerrar': '✕ Close',
+        'materia-rel': '✅ Related to the project',
+        'materia-norel': '⚪ Not directly related',
+        'materia-temas-titulo': '📌 Topics related to digital security',
+        'materias-names': {
+          matematicas:'Mathematics', programacion:'Programming', emprendimiento:'Entrepreneurship & Management',
+          orientacion:'Career Guidance & Training', biologia:'Biology', soporte:'Technical Support',
+          disenoweb:'Web Design', lengua:'Language & Literature', historia:'History',
+          sistemas:'Operating Systems', ofimatica:'Office Applications', fisica:'Physics',
+          edufisica:'Physical Education', quimica:'Chemistry', civica:'Civic Education'
+        },
+        'dots-legend-rel': 'Related', 'dots-legend-norel': 'Not related',
+        'dots-materias-titulo': '📚 Project subjects',
+        'materias-btn': {
+          matematicas:'Mathematics', programacion:'Programming', emprendimiento:'Entrepreneurship',
+          orientacion:'Career Guidance', biologia:'Biology', soporte:'Tech Support',
+          disenoweb:'Web Design', lengua:'Language & Lit.', historia:'History',
+          sistemas:'Oper. Systems', ofimatica:'Office Apps', fisica:'Physics',
+          edufisica:'Phys. Education', quimica:'Chemistry', civica:'Civic Education'
+        },
+      }
+    };
+
+    let currentLang = 'es';
+    function toggleLang(){
+      currentLang = currentLang === 'es' ? 'en' : 'es';
+      applyTranslation(currentLang);
+    }
+    function applyTranslation(lang){
+      const t = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if(t[key] !== undefined) el.innerHTML = t[key];
+      });
+      const langBtn = document.getElementById('lang-btn');
+      if(langBtn) langBtn.textContent = t['lang-btn'] || (lang === 'es' ? '🌐 EN' : '🌐 ES');
+      // Traducir botones de materias en el dropdown
+      document.querySelectorAll('.materia-item[data-materia-id]').forEach(btn => {
+        const id = btn.dataset.materiaId;
+        const dot = btn.querySelector('.materia-dot');
+        const name = t['materias-btn'] && t['materias-btn'][id] ? t['materias-btn'][id] : btn.dataset.materiaIdOrig;
+        btn.innerHTML = '';
+        if(dot){ btn.appendChild(dot.cloneNode()); } else {
+          const d = document.createElement('span');
+          d.className = 'materia-dot ' + (btn.classList.contains('relacionada') ? 'verde' : 'gris');
+          btn.appendChild(d);
+        }
+        btn.appendChild(document.createTextNode(name));
+      });
+      // Actualizar legend de materias
+      document.querySelectorAll('.dots-legend span[data-legend]').forEach(el => {
+        const key = el.dataset.legend;
+        if(t[key]) el.innerHTML = '<span class="materia-dot ' + (key==='dots-legend-rel'?'verde':'gris') + '" style="display:inline-block"></span> ' + t[key];
+      });
+      // Traducir título de materias en dropdown
+      const dtitle = document.querySelector('.dots-dropdown h5[data-i18n="dots-materias-titulo"]');
+      if(dtitle && t['dots-materias-titulo']) dtitle.textContent = t['dots-materias-titulo'];
+      // Si hay una materia inline abierta, re-renderizarla
+      const ms = document.getElementById('materia-inline-section');
+      if(ms && ms.classList.contains('visible') && ms.dataset.openMateria){
+        openMateriaWithLang(ms.dataset.openMateria, lang);
+      }
+      // Update robot tips language
+      if(lang === 'en'){
+        tipsEN = [
+          "Protect your <span>privacy</span> online",
+          "Use <span>strong</span> unique passwords",
+          "Verify <span>sources</span> before sharing",
+          "Always report <span>cyberbullying</span>",
+          "Guard your <span>digital footprint</span>",
+          "Never share <span>personal data</span> in chats",
+          "Learn to detect <span>phishing</span>",
+          "Enable <span>two-factor</span> authentication",
+        ];
+        currentTips = tipsEN;
+      } else {
+        currentTips = tipsES;
+      }
+    }
+    const tipsES = [
+      "Protege tu <span>privacidad</span> en línea",
+      "Usa <span>contraseñas</span> seguras y únicas",
+      "Verifica las <span>fuentes</span> antes de compartir",
+      "Reporta el <span>ciberacoso</span> siempre",
+      "Cuida tu <span>huella digital</span> para el futuro",
+      "No compartas <span>datos personales</span> en chats",
+      "Aprende a detectar el <span>phishing</span>",
+      "Activa la <span>autenticación</span> en dos pasos",
+    ];
+    let tipsEN = [...tipsES];
+    let currentTips = tipsES;
+
+  </script>
+<script src="https://replit-cdn.com/replit-pill/replit-pill.global.js" data-repl-id="b9585e9d-831a-47f2-bc81-4046b38fbfff"></script></body>
+</html>
